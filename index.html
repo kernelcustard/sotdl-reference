@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17130f">
+  <title>Shadow of the Demon Lord Reference</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell">
+      <p class="eyebrow">Quick reference</p>
+      <h1>Shadow of the Demon Lord</h1>
+      <p class="intro">Search concise rules summaries, categories and source pages.</p>
+      <label class="search-label" for="search">Search rules</label>
+      <input id="search" class="search" type="search" placeholder="Try frightened, range, shadows…" autocomplete="off">
+      <div id="categories" class="categories" aria-label="Rule categories"></div>
+    </div>
+  </header>
+
+  <main class="shell main-content">
+    <p id="result-count" class="result-count"></p>
+    <section id="rules" class="rules" aria-live="polite"></section>
+    <p id="empty-state" class="empty-state" hidden>No matching rules.</p>
+  </main>
+
+  <footer class="shell site-footer">
+    <p>Unofficial personal reference. Check the cited rulebook page when wording matters.</p>
+  </footer>
+
+  <script src="data/rules.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
