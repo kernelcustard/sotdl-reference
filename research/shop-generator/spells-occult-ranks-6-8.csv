@@ -1,0 +1,159 @@
+id,name,tradition,type,rank,source,page
+occult-absorb-magic,Absorb Magic,Arcana,Utility,6,occult,23
+occult-accursed-land,Accursed Land,Curse,Attack,6,occult,36
+occult-awaken-graveyard,Awaken Graveyard,Necromancy,Utility,6,occult,81
+occult-awaken-the-hero,Awaken The Hero,Enchantment,Utility,6,occult,51
+occult-become-the-soul,Become The Soul,Soul,Utility,6,occult,102
+occult-blood-of-the-earth,Blood Of The Earth,Fire,Attack,6,occult,57
+occult-brew-longevity-potion,Brew Longevity Potion,Alchemy,Utility,6,occult,18
+occult-cacophony,Cacophony,Air,Attack,6,occult,14
+occult-call-arion-charger,Call Arion Charger,Primal,Utility,6,occult,87
+occult-call-greater-demon,Call Greater Demon,Demonology,Utility,6,occult,43
+occult-call-nature-s-protector,Call Nature’s Protector,Nature,Utility,6,occult,79
+occult-call-primal-champion,Call Primal Champion,Primal,Utility,6,occult,88
+occult-cascading-ruin,Cascading Ruin,Destruction,Attack,6,occult,45
+occult-cast-down-from-heaven,Cast Down From Heaven,Battle,Attack,6,occult,25
+occult-chant-of-the-lost,Chant Of The Lost,Madness,Attack,6,occult,73
+occult-cloud-of-missiles,Cloud Of Missiles,Arcana,Utility,6,occult,23
+occult-conjure-cadre,Conjure Cadre,Conjuration,Utility,6,occult,34
+occult-control-water,Control Water,Water,Utility,6,occult,130
+occult-create-demon-spawn,Create Demon Spawn,Demonology,Attack,6,occult,42
+occult-deep-sleep,Deep Sleep,Fey,Attack,6,occult,53
+occult-denial,Denial,Protection,Utility,6,occult,90
+occult-devotion,Devotion,Enchantment,Attack,6,occult,51
+occult-effluvial-bog,Effluvial Bog,Forbidden,Attack,6,occult,60
+occult-embodiment-of-death,Embodiment Of Death,Necromancy,Utility,6,occult,81
+occult-eradicate-infestation,Eradicate Infestation,Order,Attack,6,occult,85
+occult-explode,Explode,Telekinesis,Attack,6,occult,115
+occult-fateful-bond,Fateful Bond,Divination,Utility,6,occult,47
+occult-fissure,Fissure,Earth,Attack,6,occult,49
+occult-giant-form,Giant Form,Transformation,Utility,6,occult,128
+occult-guiding-spirits,Guiding Spirits,Spiritualism,Utility,6,occult,105
+occult-heal-all,Heal All,Life,Utility,6,occult,70
+occult-heal-soul,Heal Soul,Life,Attack,6,occult,70
+occult-holy-ground,Holy Ground,Theurgy,Utility,6,occult,121
+occult-hymn-of-rebirth,Hymn Of Rebirth,Song,Utility,6,occult,99
+occult-impregnable-rune,Impregnable Rune,Rune,Utility,6,occult,94
+occult-improvised-casting,Improvised Casting,Illusion,Utility,6,occult,62
+occult-iron-bulwark,Iron Bulwark,Metal,Utility,6,occult,75
+occult-life-siphon,Life Siphon,Death,Attack,6,occult,39
+occult-mass-concealment,Mass Concealment,Illusion,Attack,6,occult,62
+occult-mass-flight,Mass Flight,Air,Utility,6,occult,15
+occult-mind-library,Mind Library,Divination,Utility,6,occult,47
+occult-night-terrors,Night Terrors,Madness,Attack,6,occult,73
+occult-nightfall,Nightfall,Shadow,Utility,6,occult,96
+occult-obliterate,Obliterate,Destruction,Attack,6,occult,45
+occult-obsidian-serpents,Obsidian Serpents,Shadow,Attack,6,occult,96
+occult-ore-thralls,Ore Thralls,Metal,Utility,6,occult,75
+occult-paragon-of-faith,Paragon Of Faith,Theurgy,Utility,6,occult,121
+occult-part-soul-from-flesh,Part Soul From Flesh,Forbidden,Attack,6,occult,60
+occult-plaguebearer,Plaguebearer,Curse,Attack,6,occult,37
+occult-power-of-chaos,Power Of Chaos,Chaos,Utility,6,occult,31
+occult-power-of-the-storm,Power Of The Storm,Storm,Utility,6,occult,109
+occult-raiment-of-the-sun,Raiment Of The Sun,Celestial,Utility,6,occult,27
+occult-recall-former-lives,Recall Former Lives,Soul,Utility,6,occult,102
+occult-reflecting-pool,Reflecting Pool,Fey,Utility,6,occult,53
+occult-remake,Remake,Chaos,Utility,6,occult,31
+occult-remove-obstacle,Remove Obstacle,Teleportation,Utility,6,occult,119
+occult-restore-mind,Restore Mind,Telepathy,Utility,6,occult,117
+occult-rune-of-warding,Rune Of Warding,Rune,Utility,6,occult,94
+occult-savage-rebuke,Savage Rebuke,Battle,Attack,6,occult,25
+occult-seasons-passage,Seasons Passage,Nature,Utility,6,occult,79
+occult-sever-timeline,Sever Timeline,Time,Attack,6,occult,125
+occult-shapeshifter,Shapeshifter,Transformation,Utility,6,occult,128
+occult-sigil-ring,Sigil Ring,Teleportation,Utility,6,occult,119
+occult-simulacrum,Simulacrum,Conjuration,Utility,6,occult,34
+occult-siren-song,Siren Song,Song,Attack,6,occult,99
+occult-spirit-bind,Spirit Bind,Spiritualism,Attack,6,occult,105
+occult-steal-capability,Steal Capability,Alteration,Utility,6,occult,21
+occult-strength-from-order,Strength From Order,Order,Utility,6,occult,85
+occult-summon-storm,Summon Storm,Storm,Utility,6,occult,108
+occult-sunburst,Sunburst,Celestial,Attack,6,occult,27
+occult-suspend-animation,Suspend Animation,Alteration,Utility,6,occult,21
+occult-telekinetic-might,Telekinetic Might,Telekinesis,Attack,6,occult,115
+occult-time-dilation,Time Dilation,Time,Utility,6,occult,125
+occult-universal-solvent,Universal Solvent,Alchemy,Utility,6,occult,18
+occult-wall-of-gears,Wall Of Gears,Technomancy,Utility,6,occult,111
+occult-wall-of-stone,Wall Of Stone,Earth,Utility,6,occult,49
+occult-weight-of-years,Weight Of Years,Death,Attack,6,occult,39
+occult-wildfire,Wildfire,Fire,Attack,6,occult,57
+occult-wipe-the-mind,Wipe The Mind,Telepathy,Attack,6,occult,117
+occult-abundance,Abundance,Nature,Utility,7,occult,79
+occult-accursed-double,Accursed Double,Illusion,Utility,7,occult,62
+occult-angel-of-death,Angel Of Death,Death,Utility,7,occult,40
+occult-arcane-reservoir,Arcane Reservoir,Arcana,Utility,7,occult,23
+occult-awaken-the-giant,Awaken The Giant,Alteration,Utility,7,occult,21
+occult-brain-damage,Brain Damage,Telepathy,Attack,7,occult,117
+occult-bring-it-down,Bring It Down,Destruction,Attack,7,occult,45
+occult-conjure-titanic-monster,Conjure Titanic Monster,Conjuration,Utility,7,occult,34
+occult-cosmic-spores,Cosmic Spores,Madness,Attack,7,occult,73
+occult-demonic-horde,Demonic Horde,Demonology,Utility,7,occult,43
+occult-desecrate,Desecrate,Forbidden,Utility,7,occult,60
+occult-destroy-metal,Destroy Metal,Metal,Attack,7,occult,75
+occult-dismantle,Dismantle,Teleportation,Attack,7,occult,119
+occult-displace-soul,Displace Soul,Soul,Attack,7,occult,102
+occult-ennui,Ennui,Enchantment,Attack,7,occult,51
+occult-eternal-slumber,Eternal Slumber,Curse,Attack,7,occult,37
+occult-hero-spirit,Hero Spirit,Spiritualism,Utility,7,occult,106
+occult-house-of-healing,House Of Healing,Life,Utility,7,occult,70
+occult-invisible-sun,Invisible Sun,Celestial,Attack,7,occult,27
+occult-lightning-storm,Lightning Storm,Storm,Attack,7,occult,109
+occult-lords-and-ladies,Lords And Ladies,Fey,Utility,7,occult,54
+occult-major-earthquake,Major Earthquake,Earth,Attack,7,occult,49
+occult-mental-armor,Mental Armor,Telekinesis,Utility,7,occult,115
+occult-premonition,Premonition,Divination,Utility,7,occult,47
+occult-promethean,Promethean,Alchemy,Utility,7,occult,18
+occult-purge-chaos,Purge Chaos,Order,Utility,7,occult,85
+occult-purge-the-unclean,Purge The Unclean,Theurgy,Attack,7,occult,121
+occult-rune-of-madness,Rune Of Madness,Rune,Attack,7,occult,94
+occult-scintillating-barrier,Scintillating Barrier,Chaos,Utility,7,occult,31
+occult-shadow-gate,Shadow Gate,Shadow,Utility,7,occult,96
+occult-shed-the-mortal-coil,Shed The Mortal Coil,Necromancy,Utility,7,occult,82
+occult-skyfall,Skyfall,Air,Attack,7,occult,15
+occult-stampede,Stampede,Primal,Attack,7,occult,88
+occult-steel-titans,Steel Titans,Technomancy,Utility,7,occult,112
+occult-swarm-of-fireballs,Swarm Of Fireballs,Fire,Attack,7,occult,57
+occult-temporal-bubble,Temporal Bubble,Time,Utility,7,occult,125
+occult-voice-of-thunder,Voice Of Thunder,Song,Attack,7,occult,99
+occult-whirlwind-of-death,Whirlwind Of Death,Battle,Attack,7,occult,25
+occult-wyvern-form,Wyvern Form,Transformation,Utility,7,occult,128
+occult-annihilate,Annihilate,Destruction,Attack,8,occult,45
+occult-astral-projection,Astral Projection,Soul,Utility,8,occult,102
+occult-basilisk-form,Basilisk Form,Transformation,Utility,8,occult,128
+occult-battle-fervor,Battle Fervor,Battle,Utility,8,occult,25
+occult-become-the-conflagration,Become The Conflagration,Fire,Utility,8,occult,57
+occult-become-the-mountain,Become The Mountain,Earth,Utility,8,occult,49
+occult-become-the-wind,Become The Wind,Air,Utility,8,occult,15
+occult-bestow-power,Bestow Power,Alteration,Utility,8,occult,21
+occult-blaze-in-the-northern-sky,Blaze In The Northern Sky,Celestial,Attack,8,occult,27
+occult-calling,Calling,Teleportation,Attack,8,occult,119
+occult-curse-of-eight-torments,Curse Of Eight Torments,Curse,Attack,8,occult,37
+occult-dimensional-banishment,Dimensional Banishment,Madness,Attack,8,occult,73
+occult-end-all-magic,End All Magic,Arcana,Utility,8,occult,23
+occult-erase-from-existence,Erase From Existence,Time,Attack,8,occult,126
+occult-gift-of-immortality,Gift Of Immortality,Fey,Utility,8,occult,54
+occult-heart-of-winter,Heart Of Winter,Storm,Attack,8,occult,109
+occult-heavenly-choir,Heavenly Choir,Song,Utility,8,occult,99
+occult-heavenly-host,Heavenly Host,Theurgy,Attack,8,occult,122
+occult-horde-of-monsters,Horde Of Monsters,Chaos,Utility,8,occult,31
+occult-illusory-landscape,Illusory Landscape,Illusion,Utility,8,occult,62
+occult-impervious,Impervious,Metal,Utility,8,occult,75
+occult-imprisoned-by-flawless-logic,Imprisoned By Flawless Logic,Order,Attack,8,occult,85
+occult-inhume,Inhume,Death,Attack,8,occult,40
+occult-into-the-void,Into The Void,Demonology,Attack,8,occult,43
+occult-mighty-fortress,Mighty Fortress,Conjuration,Utility,8,occult,34
+occult-mind-control,Mind Control,Telepathy,Attack,8,occult,117
+occult-mobile-fortress,Mobile Fortress,Technomancy,Utility,8,occult,112
+occult-pollution,Pollution,Forbidden,Attack,8,occult,60
+occult-primal-regent,Primal Regent,Primal,Utility,8,occult,88
+occult-raise-the-dead,Raise The Dead,Life,Utility,8,occult,70
+occult-rouse-the-woods,Rouse The Woods,Nature,Utility,8,occult,79
+occult-runic-inscription,Runic Inscription,Rune,Utility,8,occult,94
+occult-scrying,Scrying,Divination,Utility,8,occult,47
+occult-self-destruct,Self-Destruct,Enchantment,Attack,8,occult,51
+occult-shade,Shade,Shadow,Utility,8,occult,97
+occult-stop,Stop,Telekinesis,Attack,8,occult,115
+occult-the-great-dragon,The Great Dragon,Invocation,Attack,8,occult,68
+occult-transmutation,Transmutation,Alchemy,Utility,8,occult,19
+occult-underworld,Underworld,Spiritualism,Attack,8,occult,106
+occult-unleash-bone-machine,Unleash Bone Machine,Necromancy,Utility,8,occult,82
