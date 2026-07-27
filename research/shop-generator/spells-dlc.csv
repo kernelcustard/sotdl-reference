@@ -1,0 +1,99 @@
+id,name,tradition,type,rank,source,page
+dlc1-acidic-glob,Acidic Glob,Alchemy,Attack,0,dlc1,34
+dlc1-claws-of-darkness,Claws Of Darkness,Demonology,Attack,0,dlc1,37
+dlc1-demonic-guidance,Demonic Guidance,Demonology,Utility,0,dlc1,38
+dlc1-forceful-push,Forceful Push,Telekinesis,Attack,0,dlc1,40
+dlc1-identify-substance,Identify Substance,Alchemy,Utility,0,dlc1,34
+dlc1-killing-touch,Killing Touch,Death,Attack,0,dlc1,36
+dlc1-mind-over-matter,Mind Over Matter,Telekinesis,Utility,0,dlc1,40
+dlc1-protection-from-death,Protection From Death,Death,Utility,0,dlc1,36
+dlc1-sense-thoughts,Sense Thoughts,Telepathy,Utility,0,dlc1,41
+dlc1-share-thoughts,Share Thoughts,Telepathy,Utility,0,dlc1,41
+dlc1-spirit-bane,Spirit Bane,Spiritualism,Utility,0,dlc1,39
+dlc1-spirit-of-vengeance,Spirit Of Vengeance,Spiritualism,Attack,0,dlc1,39
+dlc1-bear-spirit,Bear Spirit,Spiritualism,Utility,1,dlc1,39
+dlc1-brew-potion,Brew Potion,Alchemy,Utility,1,dlc1,34
+dlc1-brew-remedy,Brew Remedy,Alchemy,Utility,1,dlc1,34
+dlc1-brew-superior-glue,Brew Superior Glue,Alchemy,Utility,1,dlc1,34
+dlc1-compel-demon,Compel Demon,Demonology,Attack,1,dlc1,38
+dlc1-control-spirit,Control Spirit,Spiritualism,Utility,1,dlc1,39
+dlc1-crush,Crush,Telekinesis,Attack,1,dlc1,40
+dlc1-dancing-weapon,Dancing Weapon,Telekinesis,Utility,1,dlc1,40
+dlc1-favor-of-the-demon-lord,Favor Of The Demon Lord,Demonology,Utility,1,dlc1,38
+dlc1-injure,Injure,Death,Attack,1,dlc1,36
+dlc1-life-drain,Life Drain,Death,Attack,1,dlc1,36
+dlc1-mental-static,Mental Static,Telepathy,Attack,1,dlc1,41
+dlc1-message,Message,Telepathy,Utility,1,dlc1,41
+dlc1-mind-stab,Mind Stab,Telepathy,Attack,1,dlc1,41
+dlc1-offering-of-blood,Offering Of Blood,Demonology,Utility,1,dlc1,38
+dlc1-stasis,Stasis,Death,Utility,1,dlc1,36
+dlc1-telekinetic-shield,Telekinetic Shield,Telekinesis,Utility,1,dlc1,40
+dlc1-wolf-spirit,Wolf Spirit,Spiritualism,Utility,1,dlc1,39
+dlc1-acid-darts,Acid Darts,Alchemy,Attack,2,dlc1,35
+dlc1-brew-liquid-smoke,Brew Liquid Smoke,Alchemy,Utility,2,dlc1,35
+dlc1-call-lesser-demon,Call Lesser Demon,Demonology,Utility,2,dlc1,38
+dlc1-decay,Decay,Death,Attack,2,dlc1,36
+dlc1-eagle-spirit,Eagle Spirit,Spiritualism,Utility,2,dlc1,39
+dlc1-hold,Hold,Telekinesis,Attack,2,dlc1,40
+dlc1-levitate,Levitate,Telekinesis,Utility,2,dlc1,40
+dlc1-poisonous-breath,Poisonous Breath,Death,Attack,2,dlc1,36
+dlc1-read-minds,Read Minds,Telepathy,Attack,2,dlc1,41
+dlc1-repulsion,Repulsion,Telepathy,Attack,2,dlc1,41
+dlc1-spirit-of-torment,Spirit Of Torment,Spiritualism,Attack,2,dlc1,39
+dlc1-whispers-from-the-void,Whispers From The Void,Demonology,Utility,2,dlc1,38
+dlc1-brew-alchemist-s-poison,Brew Alchemist’s Poison,Alchemy,Utility,3,dlc1,35
+dlc1-brew-wondrous-concoction,Brew Wondrous Concoction,Alchemy,Utility,3,dlc1,35
+dlc1-emotional-barrage,Emotional Barrage,Telepathy,Attack,3,dlc1,41
+dlc1-erase-presence,Erase Presence,Telepathy,Attack,3,dlc1,41
+dlc1-feast-of-souls,Feast Of Souls,Death,Attack,3,dlc1,36
+dlc1-force-barrier,Force Barrier,Telekinesis,Utility,3,dlc1,40
+dlc1-force-wave,Force Wave,Telekinesis,Attack,3,dlc1,40
+dlc1-leprous-touch,Leprous Touch,Death,Utility,3,dlc1,36
+dlc1-possession,Possession,Demonology,Attack,3,dlc1,38
+dlc1-shadow-of-the-void,Shadow Of The Void,Demonology,Utility,3,dlc1,38
+dlc1-spirit-of-healing,Spirit Of Healing,Spiritualism,Utility,3,dlc1,39
+dlc1-call-demon,Call Demon,Demonology,Utility,4,dlc1,38
+dlc1-death-fog,Death Fog,Death,Attack,4,dlc1,36
+dlc1-force-bubble,Force Bubble,Telekinesis,Attack,4,dlc1,40
+dlc1-howl-of-the-wendigo,Howl Of The Wendigo,Spiritualism,Attack,4,dlc1,39
+dlc1-husk,Husk,Telepathy,Attack,4,dlc1,41
+dlc1-liquefy,Liquefy,Alchemy,Attack,4,dlc1,35
+dlc1-hateful-spirits,Hateful Spirits,Spiritualism,Attack,5,dlc1,39
+dlc1-mind-blast,Mind Blast,Telepathy,Attack,5,dlc1,41
+dlc1-philosopher-s-stone,Philosopher’s Stone,Alchemy,Utility,5,dlc1,35
+dlc1-shadow-of-the-demon-lord,Shadow Of The Demon Lord,Demonology,Attack,5,dlc1,38
+dlc1-stop-heart,Stop Heart,Death,Attack,5,dlc1,36
+dlc1-telekinetic-outburst,Telekinetic Outburst,Telekinesis,Attack,5,dlc1,40
+dlc2-impose-predictability,Impose Predictability,Order,Utility,0,dlc2,40
+dlc2-negate-chaos,Negate Chaos,Order,Utility,0,dlc2,40
+dlc2-overcome-affliction,Overcome Affliction,Soul,Utility,0,dlc2,41
+dlc2-recall-past-success,Recall Past Success,Soul,Utility,0,dlc2,41
+dlc2-shape-metal,Shape Metal,Metal,Utility,0,dlc2,38
+dlc2-unbreakable,Unbreakable,Metal,Utility,0,dlc2,38
+dlc2-barbed-hide,Barbed Hide,Metal,Utility,1,dlc2,38
+dlc2-consistency,Consistency,Order,Utility,1,dlc2,40
+dlc2-negate-harm,Negate Harm,Soul,Utility,1,dlc2,41
+dlc2-open-the-third-eye,Open The Third Eye,Soul,Utility,1,dlc2,41
+dlc2-order-s-shield,Order’s Shield,Order,Utility,1,dlc2,40
+dlc2-rationality,Rationality,Order,Utility,1,dlc2,40
+dlc2-rust,Rust,Metal,Utility,1,dlc2,38
+dlc2-sharpen,Sharpen,Metal,Utility,1,dlc2,38
+dlc2-strike-the-soul,Strike The Soul,Soul,Attack,1,dlc2,41
+dlc2-conformity,Conformity,Order,Attack,2,dlc2,40
+dlc2-fusillade,Fusillade,Metal,Attack,2,dlc2,38
+dlc2-immobility,Immobility,Order,Attack,2,dlc2,40
+dlc2-shattering-strike,Shattering Strike,Soul,Attack,2,dlc2,41
+dlc2-strength-of-steel,Strength Of Steel,Metal,Utility,2,dlc2,39
+dlc2-walk-the-sky,Walk The Sky,Soul,Utility,2,dlc2,41
+dlc2-cage-of-iron,Cage Of Iron,Metal,Attack,3,dlc2,39
+dlc2-even-the-scales,Even The Scales,Order,Utility,3,dlc2,40
+dlc2-magnetize,Magnetize,Metal,Attack,3,dlc2,39
+dlc2-phase-shift,Phase Shift,Soul,Utility,3,dlc2,41
+dlc2-stillness,Stillness,Order,Attack,3,dlc2,40
+dlc2-velocity,Velocity,Soul,Utility,3,dlc2,41
+dlc2-dictum,Dictum,Order,Attack,4,dlc2,40
+dlc2-rend-soul,Rend Soul,Soul,Utility,4,dlc2,41
+dlc2-repel-metal,Repel Metal,Metal,Utility,4,dlc2,39
+dlc2-flesh-to-iron,Flesh To Iron,Metal,Utility,5,dlc2,40
+dlc2-mantle-of-law,Mantle Of Law,Order,Utility,5,dlc2,41
+dlc2-transcendent-recovery,Transcendent Recovery,Soul,Utility,5,dlc2,41
