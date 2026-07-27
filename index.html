@@ -15,17 +15,74 @@
     <div class="shell">
       <p class="eyebrow">Quick reference</p>
       <h1>Shadow of the Demon Lord</h1>
-      <p class="intro">Search concise rules summaries, categories and source pages.</p>
-      <label class="search-label" for="search">Search rules</label>
-      <input id="search" class="search" type="search" placeholder="Try frightened, range, shadows…" autocomplete="off">
-      <div id="categories" class="categories" aria-label="Rule categories"></div>
+      <p class="intro">Search concise rules summaries or generate reproducible special-shop stock.</p>
+      <nav class="view-tabs" aria-label="Application sections">
+        <button class="view-tab" type="button" data-view="rules-view" aria-pressed="true">Rules</button>
+        <button class="view-tab" type="button" data-view="shop-view" aria-pressed="false">Shop generator</button>
+      </nav>
     </div>
   </header>
 
   <main class="shell main-content">
-    <p id="result-count" class="result-count"></p>
-    <section id="rules" class="rules" aria-live="polite"></section>
-    <p id="empty-state" class="empty-state" hidden>No matching rules.</p>
+    <section id="rules-view" class="app-view">
+      <label class="search-label" for="search">Search rules</label>
+      <input id="search" class="search" type="search" placeholder="Try frightened, range, shadows…" autocomplete="off">
+      <div id="categories" class="categories" aria-label="Rule categories"></div>
+      <p id="result-count" class="result-count"></p>
+      <section id="rules" class="rules" aria-live="polite"></section>
+      <p id="empty-state" class="empty-state" hidden>No matching rules.</p>
+    </section>
+
+    <section id="shop-view" class="app-view" hidden>
+      <div class="shop-intro">
+        <h2>Special-shop stock</h2>
+        <p>Generate potions, incantations, alchemical items, poisons, forbidden goods and engineering marvels. Relics and ordinary equipment are excluded.</p>
+      </div>
+
+      <div class="shop-controls">
+        <label>
+          Settlement
+          <select id="shop-settlement"></select>
+        </label>
+        <label>
+          Shop type
+          <select id="shop-type"></select>
+        </label>
+        <label class="seed-control">
+          Seed
+          <input id="shop-seed" type="text" autocomplete="off" spellcheck="false" placeholder="Enter or generate a seed">
+        </label>
+        <div class="button-row">
+          <button id="generate-shop" class="primary-button" type="button">Generate stock</button>
+          <button id="new-seed" type="button">New seed</button>
+          <button id="copy-seed" type="button">Copy seed</button>
+          <button id="copy-link" type="button">Copy share link</button>
+        </div>
+      </div>
+
+      <p id="shop-status" class="shop-status" aria-live="polite">Loading shop data…</p>
+
+      <section id="shop-results" hidden>
+        <div class="shop-results-header">
+          <div>
+            <h2 id="shop-title">Available stock</h2>
+            <p id="shop-key" class="shop-key"></p>
+          </div>
+          <button id="copy-list" type="button">Copy list</button>
+        </div>
+        <div id="stock-list" class="stock-list" aria-live="polite"></div>
+
+        <div class="item-checker">
+          <h3>Check a requested item</h3>
+          <p>Search the generated stock. Spell names are checked against any generated incantations.</p>
+          <div class="checker-row">
+            <input id="item-query" type="search" placeholder="For example: healing potion or fireball" autocomplete="off">
+            <button id="check-item" type="button">Check</button>
+          </div>
+          <p id="item-check-result" class="check-result" aria-live="polite"></p>
+        </div>
+      </section>
+    </section>
   </main>
 
   <footer class="shell site-footer">
@@ -35,5 +92,6 @@
   <script src="data/rules.js?v=__BUILD_VERSION__"></script>
   <script src="data/core-combat-rules.js?v=__BUILD_VERSION__"></script>
   <script src="app.js?v=__BUILD_VERSION__"></script>
+  <script src="shop.js?v=__BUILD_VERSION__"></script>
 </body>
 </html>
