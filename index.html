@@ -73,10 +73,7 @@
 
       <section id="shop-results" hidden>
         <div class="shop-results-header compact-results-header">
-          <div>
-            <h2 id="shop-title">Settlement Stock</h2>
-            <p id="shop-key" class="shop-key"></p>
-          </div>
+          <h2 id="shop-title">Settlement Stock</h2>
           <button id="copy-list" type="button">Copy list</button>
         </div>
 
@@ -86,36 +83,32 @@
             <input id="item-query" type="search" placeholder="Search stock…" autocomplete="off">
           </label>
 
-          <details class="toolbar-menu" id="filter-menu">
-            <summary title="Filter item types" aria-label="Filter item types">
-              <span aria-hidden="true">⚗</span>
-            </summary>
-            <div class="toolbar-popover">
-              <strong>Item types</strong>
-              <div id="category-filters" class="category-filter-list"></div>
-              <div class="micro-actions">
-                <button id="select-all-categories" type="button">All</button>
-                <button id="clear-categories" type="button">None</button>
-              </div>
-            </div>
-          </details>
-
           <details class="toolbar-menu" id="sort-menu">
-            <summary title="Sort stock" aria-label="Sort stock">
-              <span aria-hidden="true">⇅</span>
-            </summary>
-            <div class="toolbar-popover sort-options">
-              <strong>Sort by</strong>
+            <summary title="Sort stock" aria-label="Sort stock"><span aria-hidden="true">⇅</span></summary>
+            <fieldset class="toolbar-popover sort-options">
+              <legend>Sort by</legend>
               <label><input type="radio" name="stock-sort" value="name" checked> Name</label>
               <label><input type="radio" name="stock-sort" value="type"> Type</label>
               <label><input type="radio" name="stock-sort" value="location"> Location</label>
-            </div>
+            </fieldset>
           </details>
         </div>
 
+        <div id="stock-filter-bar" class="stock-filter-bar" aria-label="Filter stock by broad type">
+          <button type="button" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-filter="potions" aria-pressed="false">Potions</button>
+          <button type="button" data-filter="poison" aria-pressed="false">Poison</button>
+          <button type="button" data-filter="gear" aria-pressed="false">Gear</button>
+          <button type="button" data-filter="special" aria-pressed="false">Special</button>
+          <button type="button" data-filter="incantations" aria-pressed="false">Incantations</button>
+        </div>
+
         <p id="item-check-result" class="check-result" aria-live="polite"></p>
-        <p id="visible-stock-count" class="result-count"></p>
         <div id="stock-list" class="stock-list compact-stock-list" aria-live="polite"></div>
+        <div class="stock-footer-meta">
+          <p id="visible-stock-count" class="result-count"></p>
+          <p id="shop-key" class="shop-key"></p>
+        </div>
       </section>
     </section>
   </main>
