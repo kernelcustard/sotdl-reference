@@ -1,0 +1,79 @@
+id,name,tradition,type,rank,source,page
+occult-army-of-one,Army Of One,Illusion,Utility,9,occult,63
+occult-ashes-to-ashes,Ashes To Ashes,Life,Attack,9,occult,70
+occult-blow-your-horn,Blow Your Horn,Song,Utility,9,occult,100
+occult-call-titanic-demon,Call Titanic Demon,Demonology,Utility,9,occult,43
+occult-cataclysm,Cataclysm,Destruction,Attack,9,occult,45
+occult-cave-of-dreams,Cave Of Dreams,Fey,Utility,9,occult,54
+occult-charm-the-multitudes,Charm The Multitudes,Enchantment,Attack,9,occult,51
+occult-darts-of-annihilation,Darts Of Annihilation,Arcana,Attack,9,occult,23
+occult-dirigible,Dirigible,Technomancy,Utility,9,occult,112
+occult-domination,Domination,Telepathy,Attack,9,occult,117
+occult-dragon-form,Dragon Form,Transformation,Utility,9,occult,128
+occult-dragon-spirit,Dragon Spirit,Spiritualism,Utility,9,occult,106
+occult-eclipse,Eclipse,Shadow,Utility,9,occult,97
+occult-favor-of-the-horned-lord,Favor Of The Horned Lord,Primal,Utility,9,occult,88
+occult-gateway,Gateway,Teleportation,Utility,9,occult,119
+occult-implode,Implode,Telekinesis,Attack,9,occult,115
+occult-incarnate-nature,Incarnate Nature,Nature,Utility,9,occult,79
+occult-iron-guardian,Iron Guardian,Metal,Utility,9,occult,75
+occult-malefic-monstrosities,Malefic Monstrosities,Alteration,Attack,9,occult,21
+occult-mental-feast,Mental Feast,Madness,Attack,9,occult,73
+occult-miracle,Miracle,Theurgy,Utility,9,occult,122
+occult-mouth-of-madness,Mouth Of Madness,Curse,Attack,9,occult,37
+occult-name-of-fire,Name Of Fire,Fire,Utility,9,occult,57
+occult-name-of-the-mountain,Name Of The Mountain,Earth,Utility,9,occult,49
+occult-name-of-the-storm,Name Of The Storm,Storm,Utility,9,occult,109
+occult-name-of-the-wind,Name Of The Wind,Air,Utility,9,occult,15
+occult-rapid-alchemy,Rapid Alchemy,Alchemy,Utility,9,occult,19
+occult-refuge,Refuge,Protection,Utility,9,occult,91
+occult-rune-of-damning-light,Rune Of Damning Light,Rune,Utility,9,occult,94
+occult-second-sun,Second Sun,Celestial,Utility,9,occult,27
+occult-stop-time,Stop Time,Time,Utility,9,occult,126
+occult-surge-of-slaughter,Surge Of Slaughter,Battle,Attack,9,occult,25
+occult-the-ascended-one,The Ascended One,Invocation,Attack,9,occult,68
+occult-transcendence,Transcendence,Soul,Utility,9,occult,103
+occult-true-chaos,True Chaos,Chaos,Utility,9,occult,31
+occult-true-finding,True Finding,Divination,Utility,9,occult,47
+occult-undead-legion,Undead Legion,Necromancy,Utility,9,occult,82
+occult-unmake,Unmake,Death,Attack,9,occult,40
+occult-utter-ruin,Utter Ruin,Forbidden,Attack,9,occult,60
+occult-voice-of-ultimate-authority,Voice Of Ultimate Authority,Order,Utility,9,occult,85
+occult-apocalypse,Apocalypse,Theurgy,Utility,10,occult,122
+occult-becoming,Becoming,Transformation,Utility,10,occult,128
+occult-brain-fire,Brain Fire,Telepathy,Attack,10,occult,117
+occult-call-down-the-heavens,Call Down The Heavens,Celestial,Attack,10,occult,27
+occult-call-down-the-mountain,Call Down The Mountain,Fire,Attack,10,occult,57
+occult-cosmic-awareness,Cosmic Awareness,Divination,Utility,10,occult,47
+occult-crack-the-world,Crack The World,Earth,Utility,10,occult,49
+occult-create-life,Create Life,Primal,Utility,10,occult,88
+occult-demigod,Demigod,Alteration,Utility,10,occult,21
+occult-doom,Doom,Curse,Attack,10,occult,37
+occult-enlightenment,Enlightenment,Soul,Utility,10,occult,103
+occult-enrich-magic,Enrich Magic,Arcana,Utility,10,occult,23
+occult-extinction,Extinction,Forbidden,Attack,10,occult,60
+occult-fury-of-the-heavens,Fury Of The Heavens,Air,Attack,10,occult,15
+occult-god-of-war,God Of War,Battle,Utility,10,occult,25
+occult-golem,Golem,Alchemy,Utility,10,occult,19
+occult-heal-the-land,Heal The Land,Nature,Utility,10,occult,79
+occult-hurricane,Hurricane,Storm,Utility,10,occult,109
+occult-imagine-a-hidden-kingdom,Imagine A Hidden Kingdom,Fey,Utility,10,occult,54
+occult-kill-them-all,Kill Them All,Death,Attack,10,occult,40
+occult-music-of-the-spheres,Music Of The Spheres,Song,Utility,10,occult,100
+occult-ravenous-blot,Ravenous Blot,Shadow,Attack,10,occult,97
+occult-raze,Raze,Destruction,Attack,10,occult,45
+occult-reality-shift,Reality Shift,Teleportation,Utility,10,occult,119
+occult-restore-reality,Restore Reality,Order,Attack,10,occult,85
+occult-river-of-molten-metal,River Of Molten Metal,Metal,Attack,10,occult,75
+occult-rune-of-annihilation,Rune Of Annihilation,Rune,Attack,10,occult,94
+occult-second-life,Second Life,Life,Utility,10,occult,70
+occult-shape-reality,Shape Reality,Illusion,Utility,10,occult,63
+occult-the-devil,The Devil,Invocation,Attack,10,occult,68
+occult-the-old-ones-awaken,The Old Ones Awaken,Madness,Attack,10,occult,73
+occult-time-gate,Time Gate,Time,Utility,10,occult,126
+occult-true-conjuration,True Conjuration,Conjuration,Utility,10,occult,34
+occult-true-love,True Love,Enchantment,Attack,10,occult,51
+occult-true-protection,True Protection,Protection,Utility,10,occult,91
+occult-undead-plague,Undead Plague,Necromancy,Utility,10,occult,82
+occult-underworld-s-gates,Underworld’s Gates,Spiritualism,Attack,10,occult,106
+occult-undo-reality,Undo Reality,Chaos,Attack,10,occult,31
