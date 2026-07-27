@@ -47,16 +47,13 @@
             <option value="extensive">Extensive</option>
           </select>
         </label>
-
-        <fieldset class="shop-picker compact-picker">
-          <legend>Businesses</legend>
-          <div id="shop-options" class="shop-options compact-shop-options"></div>
-          <div class="shop-picker-actions micro-actions">
-            <button id="select-all-shops" type="button">All</button>
-            <button id="clear-shops" type="button">None</button>
-          </div>
-        </fieldset>
-
+        <label class="compact-field">
+          <span>Specialisation</span>
+          <select id="stock-specialisation">
+            <option value="general" selected>General</option>
+            <option value="specialised">Specialised</option>
+          </select>
+        </label>
         <label class="seed-control seed-inline">
           <span>Seed</span>
           <input id="shop-seed" type="text" autocomplete="off" spellcheck="false" placeholder="Enter or generate a seed">
@@ -87,9 +84,8 @@
             <summary title="Sort stock" aria-label="Sort stock"><span aria-hidden="true">⇅</span></summary>
             <fieldset class="toolbar-popover sort-options">
               <legend>Sort by</legend>
-              <label><input type="radio" name="stock-sort" value="name" checked> Name</label>
-              <label><input type="radio" name="stock-sort" value="type"> Type</label>
-              <label><input type="radio" name="stock-sort" value="location"> Location</label>
+              <label><input type="radio" name="stock-sort" value="type" checked><span>Type</span></label>
+              <label><input type="radio" name="stock-sort" value="name"><span>Name</span></label>
             </fieldset>
           </details>
         </div>
@@ -99,8 +95,9 @@
           <button type="button" data-filter="potions" aria-pressed="false">Potions</button>
           <button type="button" data-filter="poison" aria-pressed="false">Poison</button>
           <button type="button" data-filter="gear" aria-pressed="false">Gear</button>
-          <button type="button" data-filter="special" aria-pressed="false">Special</button>
-          <button type="button" data-filter="incantations" aria-pressed="false">Incantations</button>
+          <button type="button" data-filter="forbidden" aria-pressed="false">Forbidden</button>
+          <button type="button" data-filter="clerical" aria-pressed="false">Clerical</button>
+          <button type="button" data-filter="magical" aria-pressed="false">Magical</button>
         </div>
 
         <p id="item-check-result" class="check-result" aria-live="polite"></p>
