@@ -1,0 +1,320 @@
+id,name,tradition,type,rank,source,page
+core-arcane-armor,Arcane Armor,Arcana,Utility,0,core,117
+core-augmented-attack,Augmented Attack,Battle,Attack,0,core,118
+core-beast-within,Beast Within,Primal,Utility,0,core,136
+core-bewitch,Bewitch,Enchantment,Attack,0,core,126
+core-black-tongue,Black Tongue,Forbidden,Utility,0,core,128
+core-break,Break,Destruction,Attack,0,core,123
+core-burning-beam,Burning Beam,Celestial,Attack,0,core,119
+core-celerity,Celerity,Battle,Utility,0,core,118
+core-chaos-boon,Chaos Boon,Chaos,Utility,0,core,120
+core-clamor,Clamor,Illusion,Utility,0,core,130
+core-comprehension,Comprehension,Alteration,Utility,0,core,116
+core-conjure-useful-item,Conjure Useful Item,Conjuration,Utility,0,core,121
+core-control-flame,Control Flame,Fire,Utility,0,core,127
+core-create-holy-symbol,Create Holy Symbol,Theurgy,Utility,0,core,144
+core-delay,Delay,Time,Attack,0,core,145
+core-denounce,Denounce,Theurgy,Attack,0,core,144
+core-direct-conjuration,Direct Conjuration,Conjuration,Utility,0,core,121
+core-disguise,Disguise,Illusion,Utility,0,core,131
+core-dismiss,Dismiss,Teleportation,Utility,0,core,143
+core-distort-appearance,Distort Appearance,Alteration,Utility,0,core,116
+core-earth-spike,Earth Spike,Earth,Attack,0,core,125
+core-eavesdrop,Eavesdrop,Divination,Utility,0,core,124
+core-epiphany,Epiphany,Divination,Utility,0,core,124
+core-erratic-bolt,Erratic Bolt,Chaos,Attack,0,core,120
+core-fetch,Fetch,Teleportation,Utility,0,core,143
+core-flame-missile,Flame Missile,Fire,Attack,0,core,128
+core-flowing-form,Flowing Form,Transformation,Utility,0,core,146
+core-fog,Fog,Storm,Utility,0,core,141
+core-freeze,Freeze,Water,Attack,0,core,147
+core-harm,Harm,Forbidden,Attack,0,core,128
+core-hex,Hex,Curse,Attack,0,core,122
+core-hide-from-animals,Hide From Animals,Primal,Utility,0,core,136
+core-hide-from-undead,Hide From Undead,Necromancy,Utility,0,core,135
+core-jury-rig,Jury-Rig,Technomancy,Utility,0,core,142
+core-life-sense,Life Sense,Life,Utility,0,core,133
+core-light,Light,Celestial,Utility,0,core,119
+core-magic-acorns,Magic Acorns,Nature,Attack,0,core,134
+core-magic-dart,Magic Dart,Arcana,Attack,0,core,117
+core-magic-lock,Magic Lock,Protection,Utility,0,core,137
+core-magic-wrench,Magic Wrench,Technomancy,Attack,0,core,142
+core-mask,Mask,Transformation,Utility,0,core,146
+core-minor-healing,Minor Healing,Life,Utility,0,core,133
+core-nightfall-blade,Nightfall Blade,Shadow,Utility,0,core,139
+core-oak-hide,Oak Hide,Nature,Utility,0,core,134
+core-pox,Pox,Curse,Attack,0,core,122
+core-presence,Presence,Enchantment,Utility,0,core,127
+core-produce-water,Produce Water,Water,Utility,0,core,147
+core-project-voice,Project Voice,Song,Utility,0,core,140
+core-ruin,Ruin,Destruction,Attack,0,core,123
+core-rune-of-finding,Rune Of Finding,Rune,Utility,0,core,138
+core-secure-site,Secure Site,Protection,Utility,0,core,137
+core-shape-earth-and-stone,Shape Earth And Stone,Earth,Utility,0,core,125
+core-shock,Shock,Storm,Attack,0,core,141
+core-song-of-friendship,Song Of Friendship,Song,Attack,0,core,140
+core-spectral-grasp,Spectral Grasp,Necromancy,Attack,0,core,135
+core-stir-the-air,Stir The Air,Air,Utility,0,core,115
+core-swiftness,Swiftness,Time,Utility,0,core,145
+core-translate-anything,Translate Anything,Rune,Utility,0,core,138
+core-wall-of-darkness,Wall Of Darkness,Shadow,Utility,0,core,139
+core-wind-blast,Wind Blast,Air,Attack,0,core,115
+core-animal-shape,Animal Shape,Transformation,Utility,1,core,146
+core-animate-corpse,Animate Corpse,Necromancy,Utility,1,core,135
+core-arcane-shield,Arcane Shield,Arcana,Utility,1,core,117
+core-arcane-sight,Arcane Sight,Arcana,Utility,1,core,117
+core-augur,Augur,Divination,Utility,1,core,124
+core-beast-tongue,Beast Tongue,Primal,Utility,1,core,136
+core-befriend-animal,Befriend Animal,Primal,Attack,1,core,136
+core-blessing,Blessing,Theurgy,Utility,1,core,145
+core-bolt-thrower,Bolt Thrower,Technomancy,Attack,1,core,142
+core-bounding-step,Bounding Step,Transformation,Utility,1,core,147
+core-brand-of-doom,Brand Of Doom,Rune,Attack,1,core,138
+core-call-small-animal,Call Small Animal,Primal,Utility,1,core,136
+core-caltrops,Caltrops,Technomancy,Utility,1,core,142
+core-capricious-devastation,Capricious Devastation,Chaos,Attack,1,core,120
+core-censure,Censure,Theurgy,Attack,1,core,145
+core-charm,Charm,Enchantment,Attack,1,core,127
+core-close-wounds,Close Wounds,Battle,Utility,1,core,118
+core-command,Command,Enchantment,Attack,1,core,127
+core-conjure-feast,Conjure Feast,Conjuration,Utility,1,core,121
+core-conjure-small-monster,Conjure Small Monster,Conjuration,Utility,1,core,121
+core-conjure-weapon,Conjure Weapon,Conjuration,Utility,1,core,121
+core-cure,Cure,Life,Utility,1,core,133
+core-darkness,Darkness,Shadow,Utility,1,core,139
+core-darksight,Darksight,Shadow,Utility,1,core,139
+core-dissolve,Dissolve,Destruction,Attack,1,core,124
+core-division,Division,Teleportation,Attack,1,core,143
+core-enhance-senses,Enhance Senses,Alteration,Utility,1,core,116
+core-evade,Evade,Protection,Utility,1,core,137
+core-evoke-gale,Evoke Gale,Air,Attack,1,core,115
+core-figment,Figment,Illusion,Utility,1,core,131
+core-fire-blast,Fire Blast,Fire,Attack,1,core,128
+core-flame-ward,Flame Ward,Fire,Utility,1,core,128
+core-flash,Flash,Celestial,Attack,1,core,119
+core-flense,Flense,Air,Attack,1,core,115
+core-fold-space,Fold Space,Chaos,Utility,1,core,120
+core-force-field,Force Field,Protection,Utility,1,core,137
+core-foretell,Foretell,Divination,Utility,1,core,124
+core-forked-lightning,Forked Lightning,Storm,Attack,1,core,141
+core-fount-of-life,Fount Of Life,Life,Utility,1,core,133
+core-freezing-fog,Freezing Fog,Storm,Attack,1,core,141
+core-frighten,Frighten,Curse,Attack,1,core,122
+core-glide,Glide,Air,Utility,1,core,115
+core-glyph-of-fire,Glyph Of Fire,Rune,Attack,1,core,138
+core-grave-grasp,Grave Grasp,Necromancy,Attack,1,core,135
+core-hallowed-ground,Hallowed Ground,Theurgy,Utility,1,core,145
+core-harvest-soul,Harvest Soul,Necromancy,Attack,1,core,135
+core-hateful-defecation,Hateful Defecation,Forbidden,Attack,1,core,129
+core-healing-berries,Healing Berries,Nature,Utility,1,core,134
+core-hobble,Hobble,Curse,Attack,1,core,122
+core-hole-of-glory,Hole Of Glory,Teleportation,Utility,1,core,144
+core-iridescent-shield,Iridescent Shield,Chaos,Utility,1,core,120
+core-light-healing,Light Healing,Life,Utility,1,core,133
+core-meteor,Meteor,Fire,Attack,1,core,128
+core-mighty-attack,Mighty Attack,Battle,Attack,1,core,118
+core-minor-paradox,Minor Paradox,Time,Attack,1,core,145
+core-murmuration,Murmuration,Transformation,Utility,1,core,147
+core-obedience,Obedience,Forbidden,Attack,1,core,129
+core-overgrowth,Overgrowth,Nature,Utility,1,core,134
+core-pain,Pain,Curse,Attack,1,core,122
+core-persistent-light,Persistent Light,Celestial,Utility,1,core,119
+core-psychometry,Psychometry,Divination,Utility,1,core,124
+core-question,Question,Enchantment,Attack,1,core,127
+core-rainbow-burst,Rainbow Burst,Celestial,Attack,1,core,119
+core-rend,Rend,Destruction,Attack,1,core,124
+core-resounding-attack,Resounding Attack,Battle,Attack,1,core,118
+core-rewrite-moment,Rewrite Moment,Time,Utility,1,core,145
+core-runic-shield,Runic Shield,Rune,Utility,1,core,138
+core-saint-astrid-s-flame,Saint Astrid’s Flame,Storm,Utility,1,core,141
+core-sanctuary,Sanctuary,Protection,Utility,1,core,137
+core-shadow-dart,Shadow Dart,Shadow,Attack,1,core,139
+core-shillelagh,Shillelagh,Nature,Utility,1,core,134
+core-slow,Slow,Time,Attack,1,core,145
+core-song-of-courage,Song Of Courage,Song,Utility,1,core,140
+core-song-of-inspiration,Song Of Inspiration,Song,Utility,1,core,140
+core-song-of-valor,Song Of Valor,Song,Utility,1,core,140
+core-sparking-shield,Sparking Shield,Technomancy,Utility,1,core,142
+core-spider-climb,Spider Climb,Alteration,Utility,1,core,116
+core-stone-armor,Stone Armor,Earth,Utility,1,core,126
+core-stone-blades,Stone Blades,Earth,Attack,1,core,126
+core-sunder,Sunder,Destruction,Attack,1,core,124
+core-swap,Swap,Teleportation,Utility,1,core,144
+core-thimblerig,Thimblerig,Illusion,Utility,1,core,131
+core-tongue-rip,Tongue Rip,Forbidden,Attack,1,core,129
+core-tremor,Tremor,Earth,Attack,1,core,126
+core-underwater-adaptation,Underwater Adaptation,Alteration,Utility,1,core,116
+core-unerring-darts,Unerring Darts,Arcana,Attack,1,core,117
+core-vertigo,Vertigo,Illusion,Attack,1,core,131
+core-arc-of-death,Arc Of Death,Battle,Attack,2,core,118
+core-avalanche,Avalanche,Earth,Attack,2,core,126
+core-bolster-attribute,Bolster Attribute,Alteration,Utility,2,core,116
+core-bolster-defense,Bolster Defense,Alteration,Utility,2,core,116
+core-bone-splinters,Bone Splinters,Necromancy,Attack,2,core,135
+core-call-lightning,Call Lightning,Storm,Attack,2,core,141
+core-call-medium-animal,Call Medium Animal,Primal,Utility,2,core,136
+core-color-of-magic,Color Of Magic,Chaos,Attack,2,core,120
+core-compel,Compel,Enchantment,Attack,2,core,127
+core-conjure-medium-monster,Conjure Medium Monster,Conjuration,Utility,2,core,122
+core-conjure-steeds,Conjure Steeds,Conjuration,Utility,2,core,122
+core-dawn,Dawn,Celestial,Utility,2,core,119
+core-dire-beast,Dire Beast,Primal,Utility,2,core,136
+core-empowered-magic,Empowered Magic,Arcana,Utility,2,core,117
+core-ensnaring-vines,Ensnaring Vines,Nature,Attack,2,core,134
+core-entropic-power,Entropic Power,Destruction,Utility,2,core,124
+core-erode,Erode,Destruction,Attack,2,core,124
+core-explosive-darts,Explosive Darts,Arcana,Attack,2,core,117
+core-fiery-pinecones,Fiery Pinecones,Nature,Attack,2,core,134
+core-fiery-volley,Fiery Volley,Fire,Attack,2,core,128
+core-flamethrower,Flamethrower,Technomancy,Utility,2,core,142
+core-flaming-shroud,Flaming Shroud,Fire,Utility,2,core,128
+core-flicker,Flicker,Chaos,Utility,2,core,120
+core-glamer,Glamer,Illusion,Utility,2,core,132
+core-glyphic-prison,Glyphic Prison,Rune,Attack,2,core,138
+core-god-hammer,God Hammer,Theurgy,Attack,2,core,145
+core-grenades,Grenades,Technomancy,Attack,2,core,143
+core-improved-animal-shape,Improved Animal Shape,Transformation,Utility,2,core,147
+core-invisibility,Invisibility,Illusion,Utility,2,core,132
+core-mind-bondage,Mind Bondage,Enchantment,Attack,2,core,127
+core-moderate-healing,Moderate Healing,Life,Utility,2,core,133
+core-mold-earth-and-stone,Mold Earth And Stone,Earth,Utility,2,core,126
+core-mountain-fall,Mountain Fall,Battle,Attack,2,core,118
+core-object-form,Object Form,Transformation,Utility,2,core,147
+core-poisonous-fog,Poisonous Fog,Storm,Attack,2,core,141
+core-precognition,Precognition,Time,Utility,2,core,146
+core-ravenous-maggots,Ravenous Maggots,Forbidden,Attack,2,core,129
+core-reading,Reading,Divination,Utility,2,core,125
+core-remove,Remove,Teleportation,Attack,2,core,144
+core-revelation,Revelation,Theurgy,Utility,2,core,145
+core-rune-of-concealment,Rune Of Concealment,Rune,Utility,2,core,138
+core-shadow-monster,Shadow Monster,Shadow,Utility,2,core,139
+core-shadow-stride,Shadow Stride,Shadow,Utility,2,core,139
+core-shortcut,Shortcut,Teleportation,Utility,2,core,144
+core-shrieking-skull,Shrieking Skull,Necromancy,Attack,2,core,135
+core-song-of-captivation,Song Of Captivation,Song,Attack,2,core,140
+core-song-of-healing,Song Of Healing,Song,Utility,2,core,141
+core-still-the-air,Still The Air,Air,Utility,2,core,115
+core-sunrays,Sunrays,Celestial,Attack,2,core,120
+core-thunderclap,Thunderclap,Air,Attack,2,core,115
+core-time-jump,Time Jump,Time,Utility,2,core,146
+core-truth-ear,Truth Ear,Divination,Utility,2,core,125
+core-vigilance,Vigilance,Protection,Utility,2,core,137
+core-vigor,Vigor,Protection,Utility,2,core,137
+core-vision-s-end,Vision’s End,Forbidden,Attack,2,core,130
+core-vitality-burst,Vitality Burst,Life,Utility,2,core,133
+core-vulnerability,Vulnerability,Curse,Attack,2,core,122
+core-weakness,Weakness,Curse,Attack,2,core,123
+core-accelerate,Accelerate,Time,Utility,3,core,146
+core-alter-size,Alter Size,Alteration,Utility,3,core,116
+core-arcane-lightning,Arcane Lightning,Arcana,Attack,3,core,118
+core-battle-prowess,Battle Prowess,Battle,Utility,3,core,119
+core-bestow-flight,Bestow Flight,Air,Utility,3,core,115
+core-black-bolts-of-the-underworld,Black Bolts Of The Underworld,Shadow,Attack,3,core,139
+core-boundless-step,Boundless Step,Teleportation,Utility,3,core,144
+core-brambles,Brambles,Nature,Utility,3,core,134
+core-call-large-animal,Call Large Animal,Primal,Utility,3,core,136
+core-cannibalize-magic,Cannibalize Magic,Necromancy,Attack,3,core,135
+core-chaotic-lance,Chaotic Lance,Chaos,Attack,3,core,120
+core-conjure-large-monster,Conjure Large Monster,Conjuration,Utility,3,core,122
+core-conjure-wall,Conjure Wall,Conjuration,Utility,3,core,122
+core-cower,Cower,Enchantment,Attack,3,core,127
+core-decelerate,Decelerate,Time,Attack,3,core,146
+core-decoy,Decoy,Illusion,Utility,3,core,132
+core-desire-s-end,Desire’s End,Forbidden,Attack,3,core,130
+core-destroy-magic,Destroy Magic,Arcana,Utility,3,core,118
+core-detonate,Detonate,Destruction,Attack,3,core,124
+core-divine-aid,Divine Aid,Theurgy,Utility,3,core,145
+core-dread,Dread,Curse,Attack,3,core,123
+core-eruption,Eruption,Earth,Attack,3,core,126
+core-evaporate,Evaporate,Destruction,Attack,3,core,124
+core-fireball,Fireball,Fire,Attack,3,core,128
+core-fling,Fling,Air,Attack,3,core,115
+core-flying-blades,Flying Blades,Technomancy,Attack,3,core,143
+core-forest-walk,Forest Walk,Nature,Utility,3,core,134
+core-fuse,Fuse,Teleportation,Attack,3,core,144
+core-greater-cure,Greater Cure,Life,Utility,3,core,133
+core-hailstorm,Hailstorm,Storm,Attack,3,core,142
+core-immolate,Immolate,Fire,Attack,3,core,128
+core-implant-suggestion,Implant Suggestion,Enchantment,Attack,3,core,127
+core-lightning-bolt,Lightning Bolt,Storm,Attack,3,core,142
+core-locate,Locate,Divination,Utility,3,core,125
+core-major-healing,Major Healing,Life,Utility,3,core,133
+core-mend,Mend,Technomancy,Utility,3,core,143
+core-meteoric-assault,Meteoric Assault,Battle,Attack,3,core,119
+core-mist-form,Mist Form,Transformation,Utility,3,core,147
+core-nail-to-the-ground,Nail To The Ground,Earth,Attack,3,core,126
+core-part-bone-from-flesh,Part Bone From Flesh,Forbidden,Attack,3,core,130
+core-phantasm,Phantasm,Illusion,Utility,3,core,132
+core-pounce,Pounce,Primal,Attack,3,core,136
+core-protection-from-spells,Protection From Spells,Protection,Utility,3,core,137
+core-protective-field,Protective Field,Protection,Utility,3,core,137
+core-radiation,Radiation,Celestial,Attack,3,core,120
+core-regeneration,Regeneration,Alteration,Utility,3,core,117
+core-rune-of-might,Rune Of Might,Rune,Utility,3,core,139
+core-see-the-future,See The Future,Divination,Utility,3,core,125
+core-shadow-magic,Shadow Magic,Shadow,Utility,3,core,139
+core-sigil-trap,Sigil Trap,Rune,Utility,3,core,138
+core-song-of-dread,Song Of Dread,Song,Attack,3,core,141
+core-song-of-ribaldry,Song Of Ribaldry,Song,Attack,3,core,141
+core-starfall,Starfall,Celestial,Attack,3,core,120
+core-swine,Swine,Curse,Attack,3,core,123
+core-well-of-dark-power,Well Of Dark Power,Necromancy,Utility,3,core,135
+core-wild-magic,Wild Magic,Chaos,Utility,3,core,121
+core-wrath-of-god,Wrath Of God,Theurgy,Attack,3,core,145
+core-acid-rain,Acid Rain,Storm,Attack,4,core,142
+core-allure,Allure,Enchantment,Attack,4,core,127
+core-avatar,Avatar,Theurgy,Utility,4,core,145
+core-call-of-the-wild,Call Of The Wild,Primal,Utility,4,core,136
+core-conjure-shelter,Conjure Shelter,Conjuration,Utility,4,core,122
+core-create-cyclone,Create Cyclone,Air,Attack,4,core,116
+core-dark-portals,Dark Portals,Shadow,Utility,4,core,140
+core-destroy,Destroy,Destruction,Attack,4,core,124
+core-earthquake,Earthquake,Earth,Attack,4,core,126
+core-harness-magic,Harness Magic,Arcana,Utility,4,core,118
+core-invulnerability,Invulnerability,Protection,Utility,4,core,137
+core-malleability,Malleability,Alteration,Utility,4,core,117
+core-mirage,Mirage,Illusion,Utility,4,core,132
+core-mirror-field,Mirror Field,Chaos,Utility,4,core,121
+core-nova,Nova,Celestial,Attack,4,core,120
+core-portals,Portals,Teleportation,Utility,4,core,144
+core-powered-suit,Powered Suit,Technomancy,Utility,4,core,143
+core-runic-weapon,Runic Weapon,Rune,Utility,4,core,139
+core-seal-the-underworld-s-gates,Seal The Underworld’s Gates,Necromancy,Attack,4,core,135
+core-song-of-slumber,Song Of Slumber,Song,Attack,4,core,141
+core-soul-exchange,Soul Exchange,Forbidden,Attack,4,core,130
+core-toad,Toad,Curse,Attack,4,core,123
+core-total-healing,Total Healing,Life,Utility,4,core,133
+core-twain-self,Twain Self,Time,Utility,4,core,146
+core-vision,Vision,Divination,Utility,4,core,125
+core-wall-of-flames,Wall Of Flames,Fire,Attack,4,core,128
+core-wall-of-swords,Wall Of Swords,Battle,Attack,4,core,119
+core-wrath-of-nature,Wrath Of Nature,Nature,Attack,4,core,134
+core-arcane-retribution,Arcane Retribution,Arcana,Attack,5,core,118
+core-army-of-the-dead,Army Of The Dead,Necromancy,Utility,5,core,135
+core-awaken-potential,Awaken Potential,Alteration,Utility,5,core,117
+core-bind-earth-genie,Bind Earth Genie,Earth,Utility,5,core,126
+core-bind-flame-genie,Bind Flame Genie,Fire,Utility,5,core,128
+core-bind-wind-genie,Bind Wind Genie,Air,Utility,5,core,116
+core-call-huge-animal,Call Huge Animal,Primal,Utility,5,core,136
+core-clairvoyance,Clairvoyance,Divination,Utility,5,core,125
+core-conjure-huge-monster,Conjure Huge Monster,Conjuration,Utility,5,core,122
+core-disintegrate,Disintegrate,Destruction,Attack,5,core,124
+core-enervation,Enervation,Shadow,Attack,5,core,140
+core-enslave,Enslave,Enchantment,Attack,5,core,127
+core-fire-from-heaven,Fire From Heaven,Theurgy,Attack,5,core,145
+core-form-of-the-oak-guardian,Form Of The Oak Guardian,Nature,Utility,5,core,134
+core-globe-of-negation,Globe Of Negation,Protection,Utility,5,core,138
+core-greater-animal-shape,Greater Animal Shape,Transformation,Utility,5,core,147
+core-horrid-joining,Horrid Joining,Forbidden,Attack,5,core,130
+core-illusory-double,Illusory Double,Illusion,Utility,5,core,132
+core-leaping-lightning,Leaping Lightning,Storm,Attack,5,core,142
+core-magic-item,Magic Item,Technomancy,Utility,5,core,143
+core-petrify,Petrify,Curse,Attack,5,core,123
+core-resurrect,Resurrect,Life,Utility,5,core,133
+core-rune-of-power,Rune Of Power,Rune,Utility,5,core,139
+core-singularity,Singularity,Chaos,Attack,5,core,121
+core-song-of-heroes,Song Of Heroes,Song,Utility,5,core,141
+core-strike-like-lightning,Strike Like Lightning,Battle,Attack,5,core,119
+core-sunbeam,Sunbeam,Celestial,Attack,5,core,120
+core-time-travel,Time Travel,Time,Utility,5,core,146
+core-travel,Travel,Teleportation,Utility,5,core,144
