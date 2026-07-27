@@ -1,0 +1,32 @@
+{
+  "core": {
+    "title": "Shadow of the Demon Lord",
+    "file": "shadow-of-the-demon-lord.pdf",
+    "page_offset": -1,
+    "scope": "Core equipment, potions, incantation pricing, enchanted object generation, core spells"
+  },
+  "dlc1": {
+    "title": "Demon Lord's Companion",
+    "file": "SotDL Demon Lords Companion.pdf",
+    "page_offset": -1,
+    "scope": "Alchemical items, forbidden items, engineering marvels, potions, equipment creation, added spells and incantations"
+  },
+  "dlc2": {
+    "title": "Demon Lord's Companion 2",
+    "file": "SotDL Demon Lords Companion 2.pdf",
+    "page_offset": -1,
+    "scope": "Invocation, Metal, Order and Soul spells for incantations"
+  },
+  "occult": {
+    "title": "Occult Philosophy",
+    "file": "SotDL Occult Philosophy.pdf",
+    "page_offset": -1,
+    "scope": "Expanded spell catalogue for incantations"
+  },
+  "poisoned_pages": {
+    "title": "Do We Not Die?",
+    "file": "SotDL - Poisoned Pages - Do We Not Die (poisons & venoms).pdf",
+    "page_offset": -1,
+    "scope": "Poisons, alchemical poisons and poison delivery gear"
+  }
+}
