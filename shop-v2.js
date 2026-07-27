@@ -47,16 +47,17 @@
   const broadFilters = {
     potions: new Set(["potion", "alchemical_item"]),
     poison: new Set(["poison", "alchemical_poison"]),
-    gear: new Set(["engineering_marvel", "poison_gear"])
+    gear: new Set(["engineering_marvel", "poison_gear"]),
+    special: new Set(["special_incantation"])
   };
 
   const availabilityOrder = { Common: 0, Uncommon: 1, Rare: 2, Exotic: 3, "GM permission": 4 };
   const breadthMultipliers = { standard: 3.2, broad: 4.8, extensive: 6.2 };
   const favouriteCounts = { standard: 3, broad: 4, extensive: 5 };
-  const priceRanges = {
-    standard: [1.10, 1.30],
-    broad: [0.90, 1.20],
-    extensive: [0.90, 1.10]
+  const priceVariationRanges = {
+    standard: [0, 0.5],
+    broad: [-0.2, 0.3],
+    extensive: [-0.2, 0.2]
   };
 
   const settlementSelect = document.querySelector("#shop-settlement");
@@ -67,6 +68,7 @@
   const newSeedButton = document.querySelector("#new-seed");
   const copyLinkButton = document.querySelector("#copy-link");
   const copyListButton = document.querySelector("#copy-list");
+  const editStockButton = document.querySelector("#edit-stock");
   const status = document.querySelector("#shop-status");
   const results = document.querySelector("#shop-results");
   const stockList = document.querySelector("#stock-list");
@@ -83,6 +85,7 @@
   let currentStock = [];
   let selectedFilters = new Set();
   let favouriteTraditions = [];
+  let playerView = false;
 
   const titleCase = (value) => String(value).replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
   const normalise = (value) => String(value ?? "").toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9']+/g, " ").trim();
@@ -160,6 +163,28 @@
     return document.querySelector('input[name="stock-sort"]:checked')?.value || "type";
   }
 
+  function priceInCopper(item) {
+    return Number(item.adjusted_price_cp ?? item.price_cp ?? 0) || 0;
+  }
+
+  function formatCopperPrice(totalCopper) {
+    const copper = Math.max(0, Math.ceil(Number(totalCopper) || 0));
+    const gold = Math.floor(copper / 100);
+    const silver = Math.floor((copper % 100) / 10);
+    const remainingCopper = copper % 10;
+    const parts = [];
+    if (gold > 0) parts.push(`${gold} gc`);
+    if (silver > 0) parts.push(`${silver} ss`);
+    if (remainingCopper > 0 || !parts.length) parts.push(`${remainingCopper} cp`);
+    return parts.join(" ");
+  }
+
+  function adjustedCopperPrice(baseCopper, rng) {
+    const [minimum, maximum] = priceVariationRanges[breadthSelect.value] || [0, 0];
+    const modifier = minimum + (rng() * (maximum - minimum));
+    return Math.ceil(baseCopper * (1 + modifier));
+  }
+
   function itemTradition(item) {
     if (item.spell?.tradition) return item.spell.tradition;
     if (item.tradition) return item.tradition;
@@ -174,13 +199,6 @@
     return known.find((tradition) => haystack.includes(normalise(tradition))) || "";
   }
 
-  function itemRank(item) {
-    if (item.spell?.rank !== undefined) return String(item.spell.rank);
-    const fromId = String(item.id || "").match(/rank-(\d+)/)?.[1];
-    if (fromId) return fromId;
-    return String(item.tags || "").match(/(?:^|\|)rank(\d+)(?:\||$)/i)?.[1] || "";
-  }
-
   function traditionDomain(tradition) {
     const key = normalise(tradition);
     if (forbiddenTraditions.has(key)) return "forbidden";
@@ -189,7 +207,8 @@
   }
 
   function itemDomain(item) {
-    if (["incantation", "special_incantation"].includes(item.category)) return traditionDomain(itemTradition(item));
+    if (item.category === "special_incantation") return "special";
+    if (item.category === "incantation") return traditionDomain(itemTradition(item));
     if (item.category === "forbidden_item") return "forbidden";
     return "";
   }
@@ -198,8 +217,21 @@
     return (availabilityOrder[item.availability] ?? 99) <= (availabilityOrder[settlement.max_availability] ?? -1);
   }
 
+  function rankFromTemplate(template) {
+    return template.id.match(/rank-(\d+)/)?.[1] || "";
+  }
+
+  function applyPriceToItem(stockItem, rng) {
+    const baseCopper = Number(stockItem.price_cp ?? 0) || 0;
+    const adjustedCopper = adjustedCopperPrice(baseCopper, rng);
+    stockItem.base_price_cp = baseCopper;
+    stockItem.adjusted_price_cp = adjustedCopper;
+    stockItem.price = formatCopperPrice(adjustedCopper);
+    return stockItem;
+  }
+
   function makeIncantation(template, rng, usedKeys) {
-    const rank = itemRank(template);
+    const rank = rankFromTemplate(template);
     let candidates = spells.filter((spell) => spell.rank === rank && !usedKeys.has(`incantation:${spell.id}`));
     if (!candidates.length) return null;
 
@@ -212,7 +244,7 @@
     const spell = choose(rng, candidates);
     const key = `incantation:${spell.id}`;
     usedKeys.add(key);
-    return {
+    const stockItem = {
       ...template,
       key,
       name: `${spell.name} incantation`,
@@ -225,6 +257,7 @@
       detail: `${spell.tradition} · Rank ${rank}`,
       tradition: spell.tradition
     };
+    return applyPriceToItem(stockItem, rng);
   }
 
   function quantityFor(item, rng) {
@@ -233,26 +266,6 @@
       return roll < .65 ? 1 : roll < .9 ? 2 : 3;
     }
     return 1;
-  }
-
-  function applyPriceVariation(item, rng) {
-    const [minimum, maximum] = priceRanges[breadthSelect.value] || [1, 1];
-    const factor = minimum + rng() * (maximum - minimum);
-    const match = String(item.price || "").replaceAll(",", "").match(/^\s*(\d+(?:\.\d+)?)\s*(cp|ss|gc)\s*$/i);
-    if (!match) return { ...item, adjustedPriceCp: Number(item.price_cp) || 0 };
-
-    const baseUnits = Number(match[1]);
-    const denomination = match[2].toLowerCase();
-    const copperPerUnit = { cp: 1, ss: 10, gc: 100 }[denomination];
-    const adjustedUnits = Math.max(1, Math.ceil(baseUnits * factor));
-    return {
-      ...item,
-      basePrice: item.price,
-      price: `${adjustedUnits.toLocaleString("en-US")} ${denomination}`,
-      price_cp: String(adjustedUnits * copperPerUnit),
-      adjustedPriceCp: adjustedUnits * copperPerUnit,
-      priceFactor: factor
-    };
   }
 
   function chooseFavouriteTraditions(rng) {
@@ -264,6 +277,12 @@
       selected.push(traditions.splice(index, 1)[0]);
     }
     return selected.sort();
+  }
+
+  function setPlayerView(enabled) {
+    playerView = enabled;
+    document.body.classList.toggle("player-stock-view", enabled);
+    editStockButton.hidden = !enabled;
   }
 
   function generateStock() {
@@ -297,18 +316,19 @@
       if (selected.category === "incantation") stockItem = makeIncantation(selected, rng, usedKeys);
       else {
         usedKeys.add(selected.id);
-        const isSpecialIncantation = selected.category === "special_incantation";
-        stockItem = {
+        stockItem = applyPriceToItem({
           ...selected,
           key: selected.id,
-          categoryLabel: isSpecialIncantation ? "Incantation" : (categoryNames[selected.category] || titleCase(selected.category)),
-          detail: isSpecialIncantation ? `${itemTradition(selected)} · Rank ${itemRank(selected)}` : (selected.notes || ""),
+          categoryLabel: categoryNames[selected.category] || titleCase(selected.category),
+          detail: selected.category === "special_incantation"
+            ? `${itemTradition(selected) || "Special"} · Rank ${selected.rank || rankFromTemplate(selected) || "—"}`
+            : (selected.notes || ""),
           tradition: itemTradition(selected)
-        };
+        }, rng);
       }
       if (!stockItem) continue;
       stockItem.quantity = quantityFor(stockItem, rng);
-      generated.push(applyPriceVariation(stockItem, rng));
+      generated.push(stockItem);
     }
 
     currentStock = generated;
@@ -324,8 +344,7 @@
     if (!selectedFilters.size) return true;
     return [...selectedFilters].some((filterName) => {
       if (broadFilters[filterName]?.has(item.category)) return true;
-      if (filterName === "special") return item.category === "special_incantation";
-      if (["forbidden", "clerical", "magical"].includes(filterName)) return itemDomain(item) === filterName;
+      if (["special", "forbidden", "clerical", "magical"].includes(filterName)) return itemDomain(item) === filterName;
       return false;
     });
   }
@@ -349,7 +368,9 @@
   function sortItems(values, mode) {
     return [...values].sort((a, b) => {
       if (mode === "price") {
-        return (Number(a.adjustedPriceCp ?? a.price_cp) || 0) - (Number(b.adjustedPriceCp ?? b.price_cp) || 0) || a.name.localeCompare(b.name);
+        return priceInCopper(a) - priceInCopper(b)
+          || groupCategory(a).localeCompare(groupCategory(b))
+          || a.name.localeCompare(b.name);
       }
       if (mode === "type") {
         const aCategory = groupCategory(a);
@@ -359,7 +380,7 @@
         if (aCategory === "incantation") {
           const traditionDifference = itemTradition(a).localeCompare(itemTradition(b));
           if (traditionDifference) return traditionDifference;
-          const rankDifference = Number(itemRank(a) || 0) - Number(itemRank(b) || 0);
+          const rankDifference = Number(a.spell?.rank ?? rankFromTemplate(a) ?? a.rank ?? 0) - Number(b.spell?.rank ?? rankFromTemplate(b) ?? b.rank ?? 0);
           if (rankDifference) return rankDifference;
         }
       }
@@ -458,6 +479,8 @@
     url.searchParams.set("sort", selectedSort());
     if (selectedFilters.size) url.searchParams.set("filters", [...selectedFilters].sort().join(","));
     else url.searchParams.delete("filters");
+    if (playerView) url.searchParams.set("view", "stock");
+    else url.searchParams.delete("view");
     url.hash = "shop";
     window.history.replaceState({}, "", url);
   }
@@ -478,7 +501,7 @@
     const url = new URL(window.location.href);
     url.hash = viewId === "shop-view" ? "shop" : "rules-view";
     window.history.replaceState({}, "", url);
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }
 
   async function loadData() {
@@ -508,17 +531,17 @@
       breadthSelect.value = parameters.get("breadth") || "broad";
       specialisationSelect.value = parameters.get("specialisation") === "specialised" ? "specialised" : "general";
       seedInput.value = parameters.get("seed") || makeSeed();
+      setPlayerView(parameters.get("view") === "stock");
 
       const requestedSort = parameters.get("sort") || "type";
       const sortInput = document.querySelector(`input[name="stock-sort"][value="${requestedSort}"]`);
       if (sortInput) sortInput.checked = true;
       const requestedFilters = parameters.get("filters");
-      const allowedFilters = ["potions", "poison", "gear", "special", "forbidden", "clerical", "magical"];
-      if (requestedFilters) selectedFilters = new Set(requestedFilters.split(",").filter((name) => allowedFilters.includes(name)));
+      if (requestedFilters) selectedFilters = new Set(requestedFilters.split(",").filter((name) => ["potions", "poison", "gear", "special", "forbidden", "clerical", "magical"].includes(name)));
       syncFilterButtons();
 
       status.textContent = "";
-      if (window.location.hash === "#shop" || parameters.has("seed")) {
+      if (window.location.hash === "#shop" || parameters.has("seed") || playerView) {
         switchView("shop-view");
         generateStock();
       }
@@ -529,12 +552,20 @@
   }
 
   document.querySelectorAll(".view-tab").forEach((button) => button.addEventListener("click", () => switchView(button.dataset.view)));
-  generateButton.addEventListener("click", generateStock);
-  newSeedButton.addEventListener("click", () => { seedInput.value = makeSeed(); generateStock(); });
-  copyLinkButton.addEventListener("click", () => copySilently(window.location.href));
+  generateButton.addEventListener("click", () => { setPlayerView(false); generateStock(); });
+  newSeedButton.addEventListener("click", () => { setPlayerView(false); seedInput.value = makeSeed(); generateStock(); });
+  copyLinkButton.addEventListener("click", () => {
+    setPlayerView(true);
+    updateShareUrl();
+    copySilently(window.location.href);
+  });
   copyListButton.addEventListener("click", () => copySilently(stockAsText()));
+  editStockButton.addEventListener("click", () => {
+    setPlayerView(false);
+    updateShareUrl();
+  });
   itemQuery.addEventListener("input", renderStock);
-  seedInput.addEventListener("keydown", (event) => { if (event.key === "Enter") generateStock(); });
+  seedInput.addEventListener("keydown", (event) => { if (event.key === "Enter") { setPlayerView(false); generateStock(); } });
 
   filterBar.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-filter]");
