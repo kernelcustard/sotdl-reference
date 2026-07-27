@@ -1,0 +1,26 @@
+{
+  "settlements": {
+    "hamlet": {"population_hint":"under 200","max_availability":"Common","stock_slots":{"general":[4,8],"specialist":[0,1]},"rarity_weights":{"Common":100}},
+    "village": {"population_hint":"200–999","max_availability":"Common","stock_slots":{"general":[6,12],"specialist":[0,2]},"rarity_weights":{"Common":100}},
+    "small_town": {"population_hint":"1,000–4,999","max_availability":"Uncommon","stock_slots":{"general":[8,14],"specialist":[2,5]},"rarity_weights":{"Common":65,"Uncommon":35}},
+    "large_town": {"population_hint":"5,000–9,999","max_availability":"Rare","stock_slots":{"general":[10,18],"specialist":[4,8]},"rarity_weights":{"Common":45,"Uncommon":35,"Rare":20}},
+    "city": {"population_hint":"10,000+","max_availability":"Exotic","stock_slots":{"general":[12,22],"specialist":[6,12]},"rarity_weights":{"Common":35,"Uncommon":30,"Rare":25,"Exotic":10}},
+    "major_city": {"population_hint":"large regional capital","max_availability":"Exotic","stock_slots":{"general":[16,28],"specialist":[10,18]},"rarity_weights":{"Common":25,"Uncommon":30,"Rare":30,"Exotic":15}},
+    "magical_centre": {"population_hint":"special access overrides population","max_availability":"Exotic","stock_slots":{"general":[10,20],"specialist":[14,24]},"rarity_weights":{"Common":15,"Uncommon":25,"Rare":35,"Exotic":25}}
+  },
+  "shops": {
+    "apothecary":{"categories":["potion","alchemical_item","poison","alchemical_poison","medical_gear"],"legal_bias":"excludes forbidden and illegal poisons unless black-market flag"},
+    "occult":{"categories":["incantation","potion","occult_gear","alchemical_item","forbidden_item"],"tradition_bias":"optional"},
+    "temple":{"categories":["incantation","potion","holy_item","medical_gear"],"tradition_bias":"religion-specific"},
+    "engineer":{"categories":["engineering_marvel","specialist_gear"]},
+    "black_market":{"categories":["forbidden_item","poison","alchemical_poison","poison_gear","incantation","potion","engineering_marvel"]},
+    "specialist":{"categories":["specialist_gear","occult_gear","medical_gear","holy_item"]}
+  },
+  "rules": {
+    "availability_thresholds":{"Common":"almost anywhere people live","Uncommon":"population 1,000+","Rare":"population 5,000+","Exotic":"population 10,000+","GM permission":"not normal retail stock"},
+    "specific_item_check":"Filter by settlement maximum and shop categories, then make one weighted availability roll. Failed checks mean unavailable at that location for the current stock period.",
+    "stock_persistence":"Generated inventory should be assigned a seed and retained until the GM rerolls or the stock period expires.",
+    "enchanted_objects":"Do not treat as normal priced stock. Core rules say they are not ordinary vendor goods. Generate them only for curiosity shops, auctions, patrons, treasure, or explicit GM override; price remains GM-set.",
+    "incantations":"Generate a rank template from items.json, then select a spell of the same rank from spells.json. Apply shop tradition filters and legal restrictions."
+  }
+}
