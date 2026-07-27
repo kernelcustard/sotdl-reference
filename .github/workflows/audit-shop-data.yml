@@ -1,0 +1,36 @@
+name: Audit shop data
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "research/shop-generator/**"
+      - "scripts/audit-shop-data.py"
+      - ".github/workflows/audit-shop-data.yml"
+  pull_request:
+    paths:
+      - "research/shop-generator/**"
+      - "scripts/audit-shop-data.py"
+      - ".github/workflows/audit-shop-data.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Audit shop data
+        run: python scripts/audit-shop-data.py
+
+      - name: Ensure generated report is current
+        run: git diff --exit-code -- research/shop-generator/coverage-report.md
