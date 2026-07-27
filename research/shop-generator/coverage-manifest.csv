@@ -26,10 +26,10 @@ core,tools,Torturer's tools,106,retail,,missing-review,Specialist or black-marke
 core,tools,Writing kit,106,retail,writing-kit,covered,
 core,incantations,Incantation rank templates,109,generated-retail,incantation-rank-0|incantation-rank-1|incantation-rank-2|incantation-rank-3|incantation-rank-4|incantation-rank-5|incantation-rank-6|incantation-rank-7|incantation-rank-8|incantation-rank-9|incantation-rank-10,covered,Templates are paired dynamically with spell records.
 core,enchanted objects,Random enchanted object,207-210,special-generator,,missing-generator,Core book defines forms and 100 possible properties; not ordinary retail stock.
-core,relics,Book of Whispers,211,special-stock,,missing-special,Unique and priceless; should appear only by explicit GM override or adventure result.
-core,relics,Circlet of Eyes,211,special-stock,,missing-special,Unique and priceless.
-core,relics,Floating Skull of Ugrash,211-212,special-stock,,missing-special,Unique and priceless.
-core,relics,Sword of Unmaking,212,special-stock,,missing-special,Unique and priceless.
+core,relics,Book of Whispers,211,exclude-from-shops,,excluded-unique,Unique and priceless relic; adventure content only.
+core,relics,Circlet of Eyes,211,exclude-from-shops,,excluded-unique,Unique and priceless relic; adventure content only.
+core,relics,Floating Skull of Ugrash,211-212,exclude-from-shops,,excluded-unique,Unique and priceless relic; adventure content only.
+core,relics,Sword of Unmaking,212,exclude-from-shops,,excluded-unique,Unique and priceless relic; adventure content only.
 dlc1,alchemical items,Demon Lord's Companion alchemical items,24-25,retail,,covered,Seven named items represented in items.csv.
 dlc1,forbidden items,Demon Lord's Companion forbidden items,25-27,black-market,,covered,Nine named items represented in items.csv.
 dlc1,engineering,Demon Lord's Companion engineering marvels,27-28,retail,,covered,Seven named items represented in items.csv.
@@ -41,11 +41,11 @@ dlc1,named incantations,Destructive Rune,42,special-incantation,,missing-review,
 dlc1,named incantations,Prophecy,42,special-incantation,,missing-review,
 dlc1,named incantations,Recall Soul,42,special-incantation,,missing-review,
 dlc1,named incantations,Entrapping Pentagram,42,special-incantation,,missing-review,
-dlc1,relics,Blood Moon Medallion,44,special-stock,,missing-special,Unique relic; not normal retail stock.
-dlc1,relics,Flying Carpet,44,special-stock,,missing-special,Unique relic; not normal retail stock.
-dlc1,relics,Gnarled Staff of the Black Wood,44,special-stock,,missing-special,Unique relic; not normal retail stock.
-dlc1,relics,Underworld Caul,45,special-stock,,missing-special,Unique relic; not normal retail stock.
-dlc1,relics,Widdershins,45,special-stock,,missing-special,Unique relic; not normal retail stock.
+dlc1,relics,Blood Moon Medallion,44,exclude-from-shops,,excluded-unique,Unique relic; adventure content only.
+dlc1,relics,Flying Carpet,44,exclude-from-shops,,excluded-unique,Unique relic; adventure content only.
+dlc1,relics,Gnarled Staff of the Black Wood,44,exclude-from-shops,,excluded-unique,Unique relic; adventure content only.
+dlc1,relics,Underworld Caul,45,exclude-from-shops,,excluded-unique,Unique relic; adventure content only.
+dlc1,relics,Widdershins,45,exclude-from-shops,,excluded-unique,Unique relic; adventure content only.
 dlc2,spells,Invocation Metal Order and Soul spells,35-42,generated-incantation,,covered,Represented through spells-dlc.csv; no separate equipment chapter.
 occult,spells,Occult Philosophy spell catalogue,12-187,generated-incantation,,covered-provisional,Machine-extracted spell files require duplicate and malformed-heading checks.
 poisoned_pages,ordinary poisons,Ordinary poisons and delivery gear,2-3,black-market,,covered,Twelve table entries represented in items.csv.
