@@ -25,8 +25,29 @@
     "GM permission": 4
   };
 
+  const breadthMultipliers = {
+    standard: 1,
+    broad: 1.75,
+    extensive: 3
+  };
+
+  const categoryLabels = {
+    potion: "Potions",
+    incantation: "Incantations",
+    special_incantation: "Incantations",
+    alchemical_item: "Alchemical items",
+    poison: "Poisons",
+    alchemical_poison: "Poisons",
+    poison_gear: "Poison gear",
+    forbidden_item: "Forbidden goods",
+    engineering_marvel: "Engineering marvels"
+  };
+
   const settlementSelect = document.querySelector("#shop-settlement");
-  const shopSelect = document.querySelector("#shop-type");
+  const breadthSelect = document.querySelector("#stock-breadth");
+  const shopOptions = document.querySelector("#shop-options");
+  const selectAllShopsButton = document.querySelector("#select-all-shops");
+  const clearShopsButton = document.querySelector("#clear-shops");
   const seedInput = document.querySelector("#shop-seed");
   const generateButton = document.querySelector("#generate-shop");
   const newSeedButton = document.querySelector("#new-seed");
@@ -41,11 +62,18 @@
   const itemQuery = document.querySelector("#item-query");
   const itemCheckButton = document.querySelector("#check-item");
   const itemCheckResult = document.querySelector("#item-check-result");
+  const filterSelect = document.querySelector("#stock-filter");
+  const sortSelect = document.querySelector("#stock-sort");
+  const groupSelect = document.querySelector("#stock-group");
+  const visibleStockCount = document.querySelector("#visible-stock-count");
 
   let profiles = null;
   let items = [];
   let spells = [];
   let currentStock = [];
+  let currentSeed = "";
+  let currentSettlementName = "";
+  let currentShopNames = [];
 
   const titleCase = (value) => String(value)
     .replaceAll("_", " ")
@@ -56,6 +84,8 @@
     .replace(/[’‘]/g, "'")
     .replace(/[^a-z0-9']+/g, " ")
     .trim();
+
+  const categoryFor = (item) => categoryLabels[item.category] ?? titleCase(item.category);
 
   function parseCsv(text) {
     const rows = [];
@@ -149,15 +179,25 @@
     return `${words[randomValues[0] % words.length]}-${words[randomValues[1] % words.length]}-${(randomValues[0] ^ randomValues[1]).toString(36)}`;
   }
 
+  function selectedShops() {
+    return Array.from(shopOptions.querySelectorAll('input[type="checkbox"]:checked')).map((input) => input.value).sort();
+  }
+
+  function setSelectedShops(names) {
+    const selected = new Set(names);
+    shopOptions.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+      input.checked = selected.has(input.value);
+    });
+  }
+
   function itemAvailableAtSettlement(item, settlement) {
     const itemRank = availabilityOrder[item.availability] ?? 99;
     const maximumRank = availabilityOrder[settlement.max_availability] ?? -1;
     return itemRank <= maximumRank;
   }
 
-  function itemMatchesShop(item, shopName, shopProfile) {
-    const listedShops = item.shop_types.split("|").filter(Boolean);
-    return listedShops.includes(shopName) && shopProfile.categories.includes(item.category);
+  function itemMatchesShop(item, shopName) {
+    return item.shop_types.split("|").filter(Boolean).includes(shopName);
   }
 
   function makeIncantation(template, rng, usedKeys) {
@@ -166,7 +206,7 @@
     const candidates = spells.filter((spell) => spell.rank === rank);
     if (!candidates.length) return null;
 
-    for (let attempt = 0; attempt < 20; attempt += 1) {
+    for (let attempt = 0; attempt < 30; attempt += 1) {
       const spell = choose(rng, candidates);
       const key = `incantation:${spell.id}`;
       if (usedKeys.has(key)) continue;
@@ -179,7 +219,7 @@
         spell,
         source: spell.source,
         page: spell.page,
-        categoryLabel: `Rank ${rank} incantation`,
+        categoryLabel: "Incantations",
         detail: `${spell.tradition} ${spell.type.toLowerCase()} spell`
       };
     }
@@ -189,27 +229,21 @@
   function quantityFor(item, rng) {
     if (["potion", "poison", "alchemical_poison", "alchemical_item"].includes(item.category)) {
       const roll = rng();
-      if (roll < 0.65) return 1;
-      if (roll < 0.9) return 2;
+      if (roll < 0.6) return 1;
+      if (roll < 0.88) return 2;
       return 3;
     }
     return 1;
   }
 
-  function generateStock() {
-    if (!profiles || !items.length) return;
-
-    const seed = seedInput.value.trim() || makeSeed();
-    seedInput.value = seed;
-    const settlementName = settlementSelect.value;
-    const shopName = shopSelect.value;
+  function generateShopStock(seed, settlementName, shopName, breadthName) {
     const settlement = profiles.settlements[settlementName];
-    const shop = profiles.shops[shopName];
-    const seedKey = `${seed}|${settlementName}|${shopName}`;
+    const seedKey = `${seed}|${settlementName}|${shopName}|${breadthName}`;
     const rng = mulberry32(xmur3(seedKey)());
     const [minimumSlots, maximumSlots] = settlement.stock_slots.special;
-    const slotCount = randomInteger(rng, minimumSlots, maximumSlots);
-    const eligible = items.filter((item) => itemAvailableAtSettlement(item, settlement) && itemMatchesShop(item, shopName, shop));
+    const multiplier = breadthMultipliers[breadthName] ?? 1;
+    const slotCount = Math.max(1, Math.round(randomInteger(rng, minimumSlots, maximumSlots) * multiplier));
+    const eligible = items.filter((item) => itemAvailableAtSettlement(item, settlement) && itemMatchesShop(item, shopName));
     const usedKeys = new Set();
     const generated = [];
 
@@ -229,80 +263,184 @@
         stockItem = {
           ...selected,
           key: selected.id,
-          categoryLabel: titleCase(selected.category),
+          categoryLabel: categoryFor(selected),
           detail: selected.notes || ""
         };
       }
+
       stockItem.quantity = quantityFor(stockItem, rng);
+      stockItem.location = titleCase(shopName);
+      stockItem.shopName = shopName;
       generated.push(stockItem);
     }
 
-    currentStock = generated;
-    renderStock(seed, settlementName, shopName, settlement);
-    updateShareUrl(seed, settlementName, shopName);
+    return generated;
   }
 
-  function renderStock(seed, settlementName, shopName, settlement) {
-    stockList.replaceChildren();
-    results.hidden = false;
-    shopTitle.textContent = `${titleCase(shopName)} stock in a ${titleCase(settlementName)}`;
-    shopKey.textContent = `Seed: ${seed} · ${settlement.population_hint} · maximum ${settlement.max_availability}`;
+  function generateStock() {
+    if (!profiles || !items.length) return;
 
-    if (!currentStock.length) {
-      const empty = document.createElement("p");
-      empty.className = "empty-state";
-      empty.textContent = "No special stock is available for this shop and settlement combination.";
-      stockList.append(empty);
-    } else {
-      const cards = currentStock.map((item) => {
-        const article = document.createElement("article");
-        article.className = "stock-card";
+    const seed = seedInput.value.trim() || makeSeed();
+    seedInput.value = seed;
+    const settlementName = settlementSelect.value;
+    const breadthName = breadthSelect.value;
+    const shopNames = selectedShops();
 
-        const heading = document.createElement("div");
-        heading.className = "stock-card-heading";
-        const title = document.createElement("h3");
-        title.textContent = item.name;
-        const price = document.createElement("strong");
-        price.textContent = item.price;
-        heading.append(title, price);
-
-        const meta = document.createElement("p");
-        meta.className = "stock-meta";
-        meta.textContent = `${item.categoryLabel} · ${item.availability} · quantity ${item.quantity}`;
-
-        const source = document.createElement("p");
-        source.className = "stock-source";
-        source.textContent = `${sourceNames[item.source] ?? item.source}, p. ${item.page}`;
-
-        article.append(heading, meta);
-        if (item.detail) {
-          const detail = document.createElement("p");
-          detail.className = "stock-detail";
-          detail.textContent = item.detail;
-          article.append(detail);
-        }
-        article.append(source);
-        return article;
-      });
-      stockList.replaceChildren(...cards);
+    if (!shopNames.length) {
+      status.textContent = "Select at least one business before generating stock.";
+      return;
     }
 
-    status.textContent = `${currentStock.length} ${currentStock.length === 1 ? "item" : "items"} generated. The same seed and settings will reproduce this list.`;
+    currentSeed = seed;
+    currentSettlementName = settlementName;
+    currentShopNames = shopNames;
+    currentStock = shopNames.flatMap((shopName) => generateShopStock(seed, settlementName, shopName, breadthName));
+
+    populateCategoryFilter();
+    renderStockHeader();
+    renderVisibleStock();
+    updateShareUrl();
+  }
+
+  function populateCategoryFilter() {
+    const previous = filterSelect.value || "all";
+    const categories = Array.from(new Set(currentStock.map(categoryFor))).sort((a, b) => a.localeCompare(b));
+    const options = [
+      ["all", "All item types"],
+      ...categories.map((category) => [category, category])
+    ].map(([value, label]) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      return option;
+    });
+    filterSelect.replaceChildren(...options);
+    filterSelect.value = categories.includes(previous) ? previous : "all";
+  }
+
+  function renderStockHeader() {
+    const settlement = profiles.settlements[currentSettlementName];
+    results.hidden = false;
+    shopTitle.textContent = `Stock available in this ${titleCase(currentSettlementName)}`;
+    shopKey.textContent = `Seed: ${currentSeed} · ${currentShopNames.map(titleCase).join(", ")} · ${settlement.population_hint} · maximum ${settlement.max_availability}`;
+    status.textContent = `${currentStock.length} stock entries generated across ${currentShopNames.length} ${currentShopNames.length === 1 ? "business" : "businesses"}. The same seed and settings reproduce this settlement.`;
     itemCheckResult.textContent = "";
   }
 
-  function updateShareUrl(seed, settlementName, shopName) {
+  function compareItems(a, b, mode) {
+    if (mode === "location") {
+      return a.location.localeCompare(b.location) || categoryFor(a).localeCompare(categoryFor(b)) || a.name.localeCompare(b.name);
+    }
+    if (mode === "type") {
+      return categoryFor(a).localeCompare(categoryFor(b)) || a.name.localeCompare(b.name) || a.location.localeCompare(b.location);
+    }
+    return a.name.localeCompare(b.name) || a.location.localeCompare(b.location);
+  }
+
+  function visibleItems() {
+    const filter = filterSelect.value;
+    return currentStock
+      .filter((item) => filter === "all" || categoryFor(item) === filter)
+      .sort((a, b) => compareItems(a, b, sortSelect.value));
+  }
+
+  function makeStockCard(item) {
+    const article = document.createElement("article");
+    article.className = "stock-card";
+
+    const heading = document.createElement("div");
+    heading.className = "stock-card-heading";
+    const title = document.createElement("h4");
+    title.textContent = item.name;
+    const price = document.createElement("strong");
+    price.textContent = item.price;
+    heading.append(title, price);
+
+    const location = document.createElement("p");
+    location.className = "stock-location";
+    location.textContent = `Location: ${item.location}`;
+
+    const meta = document.createElement("p");
+    meta.className = "stock-meta";
+    meta.textContent = `${categoryFor(item)} · ${item.availability} · quantity ${item.quantity}`;
+
+    const source = document.createElement("p");
+    source.className = "stock-source";
+    source.textContent = `${sourceNames[item.source] ?? item.source}, p. ${item.page}`;
+
+    article.append(heading, location, meta);
+    if (item.detail) {
+      const detail = document.createElement("p");
+      detail.className = "stock-detail";
+      detail.textContent = item.detail;
+      article.append(detail);
+    }
+    article.append(source);
+    return article;
+  }
+
+  function renderVisibleStock() {
+    stockList.replaceChildren();
+    const visible = visibleItems();
+    visibleStockCount.textContent = `${visible.length} of ${currentStock.length} stock entries shown`;
+
+    if (!visible.length) {
+      const empty = document.createElement("p");
+      empty.className = "empty-state";
+      empty.textContent = "No generated stock matches this filter.";
+      stockList.append(empty);
+      return;
+    }
+
+    const groupMode = groupSelect.value;
+    if (groupMode === "none") {
+      const cards = document.createElement("div");
+      cards.className = "stock-cards";
+      cards.replaceChildren(...visible.map(makeStockCard));
+      stockList.append(cards);
+      return;
+    }
+
+    const groups = new Map();
+    for (const item of visible) {
+      const key = groupMode === "location" ? item.location : categoryFor(item);
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(item);
+    }
+
+    const groupNames = Array.from(groups.keys()).sort((a, b) => a.localeCompare(b));
+    for (const groupName of groupNames) {
+      const section = document.createElement("section");
+      section.className = "stock-section";
+      const heading = document.createElement("h3");
+      heading.className = "stock-section-title";
+      heading.textContent = `${groupName} (${groups.get(groupName).length})`;
+      const cards = document.createElement("div");
+      cards.className = "stock-cards";
+      cards.replaceChildren(...groups.get(groupName).map(makeStockCard));
+      section.append(heading, cards);
+      stockList.append(section);
+    }
+  }
+
+  function updateShareUrl() {
     const url = new URL(window.location.href);
-    url.searchParams.set("seed", seed);
-    url.searchParams.set("settlement", settlementName);
-    url.searchParams.set("shop", shopName);
+    url.searchParams.set("seed", currentSeed);
+    url.searchParams.set("settlement", currentSettlementName);
+    url.searchParams.set("shops", currentShopNames.join(","));
+    url.searchParams.set("breadth", breadthSelect.value);
+    url.searchParams.set("filter", filterSelect.value);
+    url.searchParams.set("sort", sortSelect.value);
+    url.searchParams.set("group", groupSelect.value);
+    url.searchParams.delete("shop");
     url.hash = "shop";
     window.history.replaceState({}, "", url);
   }
 
   function stockAsText() {
+    const visible = visibleItems();
     const heading = `${shopTitle.textContent}\n${shopKey.textContent}`;
-    const lines = currentStock.map((item) => `- ${item.name} x${item.quantity} — ${item.price} — ${item.availability} — ${sourceNames[item.source] ?? item.source}, p. ${item.page}`);
+    const lines = visible.map((item) => `- ${item.name} x${item.quantity} — ${item.price} — ${categoryFor(item)} — ${item.location} — ${item.availability} — ${sourceNames[item.source] ?? item.source}, p. ${item.page}`);
     return [heading, "", ...lines].join("\n");
   }
 
@@ -318,21 +456,25 @@
   function checkItem() {
     const query = normalise(itemQuery.value);
     if (!query) {
+      itemCheckResult.className = "check-result unavailable";
       itemCheckResult.textContent = "Enter an item or spell name.";
       return;
     }
 
-    const match = currentStock.find((item) => {
+    const matches = currentStock.filter((item) => {
       const names = [item.name, item.baseName, item.spell?.name].filter(Boolean).map(normalise);
       return names.some((name) => name === query || name.includes(query) || query.includes(name));
     });
 
-    if (match) {
+    if (matches.length) {
+      const locations = Array.from(new Set(matches.map((item) => item.location))).sort();
+      const totalQuantity = matches.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+      const first = matches[0];
       itemCheckResult.className = "check-result available";
-      itemCheckResult.textContent = `Yes. ${match.name} is available: quantity ${match.quantity}, ${match.price}, ${sourceNames[match.source] ?? match.source} p. ${match.page}.`;
+      itemCheckResult.textContent = `Yes. ${first.name} is available at ${locations.join(", ")} (total quantity ${totalQuantity}; ${first.price}; ${sourceNames[first.source] ?? first.source} p. ${first.page}).`;
     } else {
       itemCheckResult.className = "check-result unavailable";
-      itemCheckResult.textContent = "No. That item is not in this seeded stock list.";
+      itemCheckResult.textContent = "No. That item is not present in this generated settlement stock.";
     }
   }
 
@@ -344,6 +486,22 @@
       button.setAttribute("aria-pressed", String(button.dataset.view === viewId));
     });
     window.location.hash = viewId === "shop-view" ? "shop" : "rules";
+  }
+
+  function buildShopOptions() {
+    const availableShopNames = Object.keys(profiles.shops).filter((name) => name !== "specialist");
+    const labels = availableShopNames.map((name) => {
+      const label = document.createElement("label");
+      label.className = "shop-option";
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.value = name;
+      const text = document.createElement("span");
+      text.textContent = titleCase(name);
+      label.append(input, text);
+      return label;
+    });
+    shopOptions.replaceChildren(...labels);
   }
 
   async function loadData() {
@@ -368,27 +526,34 @@
         option.textContent = `${titleCase(value)} (${profile.population_hint})`;
         return option;
       }));
-
-      shopSelect.replaceChildren(...Object.keys(profiles.shops).map((value) => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = titleCase(value);
-        return option;
-      }));
+      buildShopOptions();
 
       const parameters = new URLSearchParams(window.location.search);
       const requestedSettlement = parameters.get("settlement");
-      const requestedShop = parameters.get("shop");
-      if (requestedSettlement && profiles.settlements[requestedSettlement]) settlementSelect.value = requestedSettlement;
-      else settlementSelect.value = "city";
-      if (requestedShop && profiles.shops[requestedShop]) shopSelect.value = requestedShop;
-      else shopSelect.value = "occult";
+      settlementSelect.value = requestedSettlement && profiles.settlements[requestedSettlement] ? requestedSettlement : "city";
+
+      const requestedBreadth = parameters.get("breadth");
+      breadthSelect.value = breadthMultipliers[requestedBreadth] ? requestedBreadth : "broad";
+
+      const validShopNames = new Set(Object.keys(profiles.shops).filter((name) => name !== "specialist"));
+      const requestedShops = (parameters.get("shops") || parameters.get("shop") || "")
+        .split(",")
+        .filter((name) => validShopNames.has(name));
+      setSelectedShops(requestedShops.length ? requestedShops : ["apothecary", "occult", "temple", "engineer"]);
+
       seedInput.value = parameters.get("seed") || makeSeed();
+      sortSelect.value = ["name", "type", "location"].includes(parameters.get("sort")) ? parameters.get("sort") : "name";
+      groupSelect.value = ["type", "location", "none"].includes(parameters.get("group")) ? parameters.get("group") : "type";
 
       status.textContent = `${items.length} catalogue entries and ${spells.length} spells loaded.`;
       if (window.location.hash === "#shop" || parameters.has("seed")) {
         switchView("shop-view");
         generateStock();
+        const requestedFilter = parameters.get("filter");
+        if (requestedFilter && Array.from(filterSelect.options).some((option) => option.value === requestedFilter)) {
+          filterSelect.value = requestedFilter;
+          renderVisibleStock();
+        }
       }
     } catch (error) {
       status.textContent = `Shop data could not be loaded: ${error.message}`;
@@ -404,18 +569,36 @@
     seedInput.value = makeSeed();
     generateStock();
   });
+  selectAllShopsButton.addEventListener("click", () => {
+    shopOptions.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = true; });
+  });
+  clearShopsButton.addEventListener("click", () => {
+    shopOptions.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false; });
+  });
   copySeedButton.addEventListener("click", () => copyText(seedInput.value, "Seed copied."));
   copyLinkButton.addEventListener("click", () => {
     if (!currentStock.length) generateStock();
     copyText(window.location.href, "Share link copied.");
   });
-  copyListButton.addEventListener("click", () => copyText(stockAsText(), "Stock list copied."));
+  copyListButton.addEventListener("click", () => copyText(stockAsText(), "Visible stock list copied."));
   itemCheckButton.addEventListener("click", checkItem);
   itemQuery.addEventListener("keydown", (event) => {
     if (event.key === "Enter") checkItem();
   });
   seedInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") generateStock();
+  });
+  filterSelect.addEventListener("change", () => {
+    renderVisibleStock();
+    updateShareUrl();
+  });
+  sortSelect.addEventListener("change", () => {
+    renderVisibleStock();
+    updateShareUrl();
+  });
+  groupSelect.addEventListener("change", () => {
+    renderVisibleStock();
+    updateShareUrl();
   });
 
   loadData();
