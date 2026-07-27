@@ -29,6 +29,14 @@
     engineering_marvel: "Engineering marvels"
   };
 
+  const broadFilters = {
+    potions: new Set(["potion", "alchemical_item"]),
+    poison: new Set(["poison", "alchemical_poison"]),
+    gear: new Set(["engineering_marvel", "poison_gear"]),
+    special: new Set(["forbidden_item", "special_incantation"]),
+    incantations: new Set(["incantation"])
+  };
+
   const availabilityOrder = { Common: 0, Uncommon: 1, Rare: 2, Exotic: 3, "GM permission": 4 };
   const breadthMultipliers = { standard: 1, broad: 1.65, extensive: 2.4 };
 
@@ -43,9 +51,6 @@
   const copyListButton = document.querySelector("#copy-list");
   const selectAllShopsButton = document.querySelector("#select-all-shops");
   const clearShopsButton = document.querySelector("#clear-shops");
-  const selectAllCategoriesButton = document.querySelector("#select-all-categories");
-  const clearCategoriesButton = document.querySelector("#clear-categories");
-  const categoryFilters = document.querySelector("#category-filters");
   const status = document.querySelector("#shop-status");
   const results = document.querySelector("#shop-results");
   const stockList = document.querySelector("#stock-list");
@@ -54,12 +59,14 @@
   const itemQuery = document.querySelector("#item-query");
   const itemCheckResult = document.querySelector("#item-check-result");
   const visibleStockCount = document.querySelector("#visible-stock-count");
+  const filterBar = document.querySelector("#stock-filter-bar");
+  const sortMenu = document.querySelector("#sort-menu");
 
   let profiles = null;
   let items = [];
   let spells = [];
   let currentStock = [];
-  let selectedCategories = new Set();
+  let selectedFilters = new Set();
 
   const titleCase = (value) => String(value).replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
   const normalise = (value) => String(value ?? "").toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9']+/g, " ").trim();
@@ -226,35 +233,25 @@
     }
 
     currentStock = generated;
-    selectedCategories = new Set([...new Set(currentStock.map((item) => item.category))]);
-    buildCategoryFilters();
+    selectedFilters.clear();
+    syncFilterButtons();
+    itemQuery.value = "";
+    itemCheckResult.textContent = "";
     renderStock();
     updateShareUrl();
     results.hidden = false;
     status.textContent = "";
   }
 
-  function buildCategoryFilters() {
-    const categories = [...new Set(currentStock.map((item) => item.category))].sort((a, b) => (categoryNames[a] || a).localeCompare(categoryNames[b] || b));
-    categoryFilters.replaceChildren(...categories.map((category) => {
-      const label = document.createElement("label");
-      const input = document.createElement("input");
-      input.type = "checkbox";
-      input.value = category;
-      input.checked = selectedCategories.has(category);
-      input.addEventListener("change", () => {
-        if (input.checked) selectedCategories.add(category); else selectedCategories.delete(category);
-        renderStock();
-      });
-      label.append(input, document.createTextNode(categoryNames[category] || titleCase(category)));
-      return label;
-    }));
+  function matchesBroadFilter(item) {
+    if (!selectedFilters.size) return true;
+    return [...selectedFilters].some((filterName) => broadFilters[filterName]?.has(item.category));
   }
 
   function filteredStock() {
     const query = normalise(itemQuery.value);
     return currentStock.filter((item) => {
-      if (!selectedCategories.has(item.category)) return false;
+      if (!matchesBroadFilter(item)) return false;
       if (!query) return true;
       const haystack = [item.name, item.baseName, item.spell?.name, item.categoryLabel, item.location, item.detail, sourceNames[item.source]].filter(Boolean).map(normalise).join(" ");
       return haystack.includes(query);
@@ -272,6 +269,7 @@
   function makeStockCard(item) {
     const article = document.createElement("article");
     article.className = "stock-card";
+
     const heading = document.createElement("div");
     heading.className = "stock-card-heading";
     const title = document.createElement("h3");
@@ -295,6 +293,7 @@
       detail.textContent = item.detail;
       article.append(detail);
     }
+
     const source = document.createElement("p");
     source.className = "stock-source";
     source.textContent = `${sourceNames[item.source] ?? item.source} p. ${item.page}`;
@@ -303,15 +302,13 @@
   }
 
   function renderStock() {
-    if (!profiles) return;
     const mode = selectedSort();
     const visible = sortItems(filteredStock(), mode);
-    const settlementName = settlementSelect.value;
-    const settlement = profiles.settlements[settlementName];
-    shopTitle.textContent = `${titleCase(settlementName)} Stock`;
-    shopKey.textContent = `Seed ${seedInput.value} · maximum ${settlement.max_availability}`;
-    visibleStockCount.textContent = `${visible.length} of ${currentStock.length} items`;
     stockList.replaceChildren();
+
+    shopTitle.textContent = `${titleCase(settlementSelect.value)} Stock`;
+    const settlement = profiles.settlements[settlementSelect.value];
+    shopKey.textContent = `Seed: ${seedInput.value} · maximum ${settlement.max_availability}`;
 
     if (!visible.length) {
       const empty = document.createElement("p");
@@ -321,59 +318,87 @@
     } else if (mode === "name") {
       stockList.replaceChildren(...visible.map(makeStockCard));
     } else {
+      const keyFor = mode === "type" ? (item) => categoryNames[item.category] || titleCase(item.category) : (item) => item.location;
       const groups = new Map();
       for (const item of visible) {
-        const key = mode === "type" ? (categoryNames[item.category] || titleCase(item.category)) : item.location;
+        const key = keyFor(item);
         if (!groups.has(key)) groups.set(key, []);
         groups.get(key).push(item);
       }
       for (const [groupName, groupItems] of groups) {
         const section = document.createElement("section");
         section.className = "stock-section";
-        const heading = document.createElement("h3");
-        heading.className = "stock-section-title";
-        heading.textContent = groupName;
+        const title = document.createElement("h3");
+        title.className = "stock-section-title";
+        title.textContent = groupName;
         const cards = document.createElement("div");
         cards.className = "stock-cards";
         cards.replaceChildren(...groupItems.map(makeStockCard));
-        section.append(heading, cards);
+        section.append(title, cards);
         stockList.append(section);
       }
     }
 
-    const query = normalise(itemQuery.value);
-    if (query) {
-      const exact = currentStock.find((item) => [item.name, item.baseName, item.spell?.name].filter(Boolean).map(normalise).some((name) => name === query));
-      itemCheckResult.className = `check-result ${exact ? "available" : visible.length ? "available" : "unavailable"}`;
-      itemCheckResult.textContent = exact ? `${exact.name} is available at ${exact.location}.` : visible.length ? `${visible.length} matching item${visible.length === 1 ? "" : "s"}.` : "No matching item is available.";
-    } else itemCheckResult.textContent = "";
+    visibleStockCount.textContent = `${visible.length} of ${currentStock.length} items`;
+    updateShareUrl();
+  }
+
+  function syncFilterButtons() {
+    filterBar.querySelectorAll("button[data-filter]").forEach((button) => {
+      const key = button.dataset.filter;
+      button.setAttribute("aria-pressed", String(key === "all" ? selectedFilters.size === 0 : selectedFilters.has(key)));
+    });
   }
 
   function updateShareUrl() {
+    if (!profiles) return;
     const url = new URL(window.location.href);
-    url.searchParams.set("seed", seedInput.value.trim());
+    url.searchParams.set("seed", seedInput.value);
     url.searchParams.set("settlement", settlementSelect.value);
     url.searchParams.set("breadth", breadthSelect.value);
     url.searchParams.set("shops", selectedShopNames().join(","));
     url.searchParams.set("sort", selectedSort());
+    if (selectedFilters.size) url.searchParams.set("filters", [...selectedFilters].sort().join(","));
+    else url.searchParams.delete("filters");
     url.hash = "shop";
     window.history.replaceState({}, "", url);
   }
 
   function stockAsText() {
     const visible = sortItems(filteredStock(), selectedSort());
-    return [`${shopTitle.textContent}`, `${shopKey.textContent}`, "", ...visible.map((item) => `- ${item.name} (${item.location}) x${item.quantity} — ${item.price} — ${sourceNames[item.source] ?? item.source}, p. ${item.page}`)].join("\n");
+    const heading = `${shopTitle.textContent}\n${shopKey.textContent}`;
+    const lines = visible.map((item) => `- ${item.name} (${item.location}) x${item.quantity} — ${item.price} — ${item.availability} — ${sourceNames[item.source] ?? item.source}, p. ${item.page}`);
+    return [heading, "", ...lines].join("\n");
   }
 
   async function copyText(text, successMessage) {
-    try { await navigator.clipboard.writeText(text); status.textContent = successMessage; }
-    catch { status.textContent = "Copying was blocked by the browser."; }
+    try {
+      await navigator.clipboard.writeText(text);
+      status.textContent = successMessage;
+    } catch {
+      status.textContent = "Copying was blocked by the browser.";
+    }
   }
 
   function switchView(viewId) {
     document.querySelectorAll(".app-view").forEach((view) => { view.hidden = view.id !== viewId; });
-    document.querySelectorAll(".view-tab").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.view === viewId)));
+    document.querySelectorAll(".view-tab").forEach((button) => { button.setAttribute("aria-pressed", String(button.dataset.view === viewId)); });
     window.location.hash = viewId === "shop-view" ? "shop" : "rules";
+  }
+
+  function renderShopOptions(requested) {
+    const defaults = new Set(["apothecary", "occult", "temple", "engineer"]);
+    const requestedSet = requested ? new Set(requested.split(",").filter(Boolean)) : defaults;
+    shopOptions.replaceChildren(...Object.keys(profiles.shops).map((name) => {
+      const label = document.createElement("label");
+      label.className = "shop-option";
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.value = name;
+      input.checked = requestedSet.has(name);
+      label.append(input, document.createTextNode(titleCase(name)));
+      return label;
+    }));
   }
 
   async function loadData() {
@@ -383,10 +408,13 @@
         fetch(`${DATA_ROOT}/items.csv`, { cache: "no-store" }),
         ...SPELL_FILES.map((file) => fetch(`${DATA_ROOT}/${file}`, { cache: "no-store" }))
       ]);
-      if ([profileResponse, itemResponse, ...spellResponses].some((response) => !response.ok)) throw new Error("One or more data files could not be loaded.");
+      const responses = [profileResponse, itemResponse, ...spellResponses];
+      if (responses.some((response) => !response.ok)) throw new Error("One or more data files could not be loaded.");
+
       profiles = await profileResponse.json();
       items = parseCsv(await itemResponse.text());
-      spells = (await Promise.all(spellResponses.map((response) => response.text()))).flatMap(parseCsv).filter((spell) => spell.name && spell.rank && spell.tradition);
+      const spellTexts = await Promise.all(spellResponses.map((response) => response.text()));
+      spells = spellTexts.flatMap(parseCsv).filter((spell) => spell.name && spell.rank && spell.tradition);
 
       settlementSelect.replaceChildren(...Object.entries(profiles.settlements).map(([value, profile]) => {
         const option = document.createElement("option");
@@ -395,28 +423,24 @@
         return option;
       }));
 
-      shopOptions.replaceChildren(...Object.keys(profiles.shops).map((value) => {
-        const label = document.createElement("label");
-        label.className = "shop-option";
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.value = value;
-        label.append(input, document.createTextNode(titleCase(value)));
-        return label;
-      }));
-
       const parameters = new URLSearchParams(window.location.search);
       settlementSelect.value = profiles.settlements[parameters.get("settlement")] ? parameters.get("settlement") : "city";
-      breadthSelect.value = breadthMultipliers[parameters.get("breadth")] ? parameters.get("breadth") : "broad";
+      breadthSelect.value = parameters.get("breadth") || "broad";
       seedInput.value = parameters.get("seed") || makeSeed();
-      const requestedShops = (parameters.get("shops") || "apothecary,occult,temple,engineer").split(",");
-      shopOptions.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = requestedShops.includes(input.value); });
-      const requestedSort = parameters.get("sort") || "name";
-      const sortRadio = document.querySelector(`input[name="stock-sort"][value="${requestedSort}"]`);
-      if (sortRadio) sortRadio.checked = true;
+      renderShopOptions(parameters.get("shops"));
 
-      status.textContent = "";
-      if (window.location.hash === "#shop" || parameters.has("seed")) { switchView("shop-view"); generateStock(); }
+      const requestedSort = parameters.get("sort");
+      const sortInput = document.querySelector(`input[name="stock-sort"][value="${requestedSort}"]`);
+      if (sortInput) sortInput.checked = true;
+      const requestedFilters = parameters.get("filters");
+      if (requestedFilters) selectedFilters = new Set(requestedFilters.split(",").filter((name) => broadFilters[name]));
+      syncFilterButtons();
+
+      status.textContent = `${items.length} catalogue entries and ${spells.length} spells loaded.`;
+      if (window.location.hash === "#shop" || parameters.has("seed")) {
+        switchView("shop-view");
+        generateStock();
+      }
     } catch (error) {
       status.textContent = `Shop data could not be loaded: ${error.message}`;
       generateButton.disabled = true;
@@ -427,15 +451,32 @@
   generateButton.addEventListener("click", generateStock);
   newSeedButton.addEventListener("click", () => { seedInput.value = makeSeed(); generateStock(); });
   copySeedButton.addEventListener("click", () => copyText(seedInput.value, "Seed copied."));
-  copyLinkButton.addEventListener("click", () => { if (!currentStock.length) generateStock(); copyText(window.location.href, "Share link copied."); });
-  copyListButton.addEventListener("click", () => copyText(stockAsText(), "List copied."));
+  copyLinkButton.addEventListener("click", () => copyText(window.location.href, "Share link copied."));
+  copyListButton.addEventListener("click", () => copyText(stockAsText(), "Visible stock copied."));
   selectAllShopsButton.addEventListener("click", () => shopOptions.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = true; }));
   clearShopsButton.addEventListener("click", () => shopOptions.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false; }));
-  selectAllCategoriesButton.addEventListener("click", () => { selectedCategories = new Set(currentStock.map((item) => item.category)); buildCategoryFilters(); renderStock(); });
-  clearCategoriesButton.addEventListener("click", () => { selectedCategories.clear(); buildCategoryFilters(); renderStock(); });
   itemQuery.addEventListener("input", renderStock);
   seedInput.addEventListener("keydown", (event) => { if (event.key === "Enter") generateStock(); });
-  document.querySelectorAll('input[name="stock-sort"]').forEach((input) => input.addEventListener("change", () => { renderStock(); updateShareUrl(); document.querySelector("#sort-menu").open = false; }));
+
+  filterBar.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-filter]");
+    if (!button) return;
+    const filterName = button.dataset.filter;
+    if (filterName === "all") selectedFilters.clear();
+    else if (selectedFilters.has(filterName)) selectedFilters.delete(filterName);
+    else selectedFilters.add(filterName);
+    syncFilterButtons();
+    renderStock();
+  });
+
+  document.querySelectorAll('input[name="stock-sort"]').forEach((input) => input.addEventListener("change", () => {
+    sortMenu.open = false;
+    renderStock();
+  }));
+
+  document.addEventListener("click", (event) => {
+    if (sortMenu.open && !sortMenu.contains(event.target)) sortMenu.open = false;
+  });
 
   loadData();
 })();
