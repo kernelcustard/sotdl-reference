@@ -34,18 +34,13 @@
     </section>
 
     <section id="shop-view" class="app-view" hidden>
-      <div class="shop-intro">
-        <h2>Settlement stock</h2>
-        <p>Generate one composite shopping list across the selected businesses. Potions, incantations, alchemical items, poisons, forbidden goods and engineering marvels are included. Relics and ordinary equipment are excluded.</p>
-      </div>
-
-      <div class="shop-controls">
-        <label>
-          Settlement
+      <div class="shop-controls compact-panel">
+        <label class="compact-field">
+          <span>Settlement</span>
           <select id="shop-settlement"></select>
         </label>
-        <label>
-          Stock breadth
+        <label class="compact-field">
+          <span>Breadth</span>
           <select id="stock-breadth">
             <option value="standard">Standard</option>
             <option value="broad" selected>Broad restock</option>
@@ -53,73 +48,74 @@
           </select>
         </label>
 
-        <fieldset class="shop-picker">
-          <legend>Businesses present</legend>
-          <div class="shop-picker-actions">
-            <button id="select-all-shops" type="button">Select all</button>
-            <button id="clear-shops" type="button">Clear</button>
+        <fieldset class="shop-picker compact-picker">
+          <legend>Businesses</legend>
+          <div id="shop-options" class="shop-options compact-shop-options"></div>
+          <div class="shop-picker-actions micro-actions">
+            <button id="select-all-shops" type="button">All</button>
+            <button id="clear-shops" type="button">None</button>
           </div>
-          <div id="shop-options" class="shop-options"></div>
         </fieldset>
 
-        <label class="seed-control">
-          Seed
+        <label class="seed-control seed-inline">
+          <span>Seed</span>
           <input id="shop-seed" type="text" autocomplete="off" spellcheck="false" placeholder="Enter or generate a seed">
         </label>
-        <div class="button-row">
-          <button id="generate-shop" class="primary-button" type="button">Generate settlement stock</button>
+        <div class="button-row compact-actions">
+          <button id="generate-shop" class="primary-button" type="button">Generate</button>
           <button id="new-seed" type="button">New seed</button>
           <button id="copy-seed" type="button">Copy seed</button>
-          <button id="copy-link" type="button">Copy share link</button>
+          <button id="copy-link" type="button">Share</button>
         </div>
       </div>
 
       <p id="shop-status" class="shop-status" aria-live="polite">Loading shop data…</p>
 
       <section id="shop-results" hidden>
-        <div class="shop-results-header">
+        <div class="shop-results-header compact-results-header">
           <div>
-            <h2 id="shop-title">Available stock</h2>
+            <h2 id="shop-title">Settlement Stock</h2>
             <p id="shop-key" class="shop-key"></p>
           </div>
-          <button id="copy-list" type="button">Copy visible list</button>
+          <button id="copy-list" type="button">Copy list</button>
         </div>
 
-        <div class="item-checker item-checker-top">
-          <h3>Find or check an item</h3>
-          <p>Search the generated settlement stock. This also searches spell names within generated incantations.</p>
-          <div class="checker-row">
-            <input id="item-query" type="search" placeholder="For example: healing potion or fireball" autocomplete="off">
-            <button id="check-item" type="button">Check</button>
-          </div>
-          <p id="item-check-result" class="check-result" aria-live="polite"></p>
+        <div class="stock-toolbar">
+          <label class="stock-search" for="item-query">
+            <span class="visually-hidden">Search stock</span>
+            <input id="item-query" type="search" placeholder="Search stock…" autocomplete="off">
+          </label>
+
+          <details class="toolbar-menu" id="filter-menu">
+            <summary title="Filter item types" aria-label="Filter item types">
+              <span aria-hidden="true">⚗</span>
+            </summary>
+            <div class="toolbar-popover">
+              <strong>Item types</strong>
+              <div id="category-filters" class="category-filter-list"></div>
+              <div class="micro-actions">
+                <button id="select-all-categories" type="button">All</button>
+                <button id="clear-categories" type="button">None</button>
+              </div>
+            </div>
+          </details>
+
+          <details class="toolbar-menu" id="sort-menu">
+            <summary title="Sort stock" aria-label="Sort stock">
+              <span aria-hidden="true">⇅</span>
+            </summary>
+            <div class="toolbar-popover sort-options">
+              <strong>Sort by</strong>
+              <label><input type="radio" name="stock-sort" value="name" checked> Name</label>
+              <label><input type="radio" name="stock-sort" value="type"> Type</label>
+              <label><input type="radio" name="stock-sort" value="location"> Location</label>
+            </div>
+          </details>
         </div>
 
-        <div class="stock-view-controls" aria-label="Stock display controls">
-          <label>
-            Filter
-            <select id="stock-filter"><option value="all">All item types</option></select>
-          </label>
-          <label>
-            Sort
-            <select id="stock-sort">
-              <option value="name">Name</option>
-              <option value="type">Item type</option>
-              <option value="location">Location</option>
-            </select>
-          </label>
-          <label>
-            Group
-            <select id="stock-group">
-              <option value="type">Item type</option>
-              <option value="location">Location</option>
-              <option value="none">No sections</option>
-            </select>
-          </label>
-        </div>
-
+        <p id="item-check-result" class="check-result" aria-live="polite"></p>
         <p id="visible-stock-count" class="result-count"></p>
-        <div id="stock-list" class="stock-list" aria-live="polite"></div>
+        <div id="stock-list" class="stock-list compact-stock-list" aria-live="polite"></div>
       </section>
     </section>
   </main>
