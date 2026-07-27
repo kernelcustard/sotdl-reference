@@ -1,108 +1,72 @@
 # Shop Generator Coverage Report
 
-> Initial report prepared from `coverage-manifest.csv` and the current research datasets. Future reports can be regenerated with `python scripts/audit-shop-data.py`.
+> Generated from `coverage-manifest.csv` and the current research datasets.
 
 ## Summary
 
-- Fixed-price catalogue rows: **85**
+- Fixed-price and template catalogue rows: **80**
 - Spell catalogue rows: **1,152** across **6** files
-- Coverage manifest rows: **52**
-- Entries requiring an inclusion decision: **15**
-- Special-stock records not yet implemented: **9**
+- Coverage manifest rows: **29**
+- Entries requiring an inclusion decision: **0**
+- Relics included as shop stock: **0**
 - Generator systems not yet implemented: **1**
-- Deliberate exclusions: **5**
 
-The existing fixed-price catalogue substantially covers the selected potions, alchemical goods, poisons, forbidden goods, engineering devices and incantation rank templates. It does **not yet constitute complete coverage** of every potentially relevant source entry.
+The catalogue is deliberately limited to special stock: potions, incantations, alchemical items, poisons, forbidden goods, poison-delivery gear and engineering marvels. Normal equipment and specialist tools are outside scope.
 
-## Manifest status
+## Decisions applied
 
-| Status | Count |
-|---|---:|
-| covered | 21 |
-| covered-provisional | 1 |
-| missing-review | 15 |
-| missing-special | 9 |
-| missing-generator | 1 |
-| excluded-mundane | 4 |
-| excluded-section | 1 |
+### Specialist tools
 
-## Items requiring an inclusion decision
+Normal and specialist tools from the core equipment chapter are excluded. This includes healer's kits, lock picks, implements, crystal balls, writing kits and similar ordinary purchases. They belong in a general equipment tool rather than this special-stock generator.
 
-These are source entries that could plausibly belong in one or more specialist shops but were omitted from the initial catalogue:
+### Named incantations
 
-### Core rulebook tools
+The seven incantation-only spells from *Demon Lord's Companion* are included as fixed special incantation records using the standard price and availability for their ranks:
 
-- Block and tackle — p. 106
-- Book, printed or tome — p. 106
-- Holly and mistletoe — p. 106
-- Holy symbol — p. 106
-- Hourglass — p. 106
-- Musical instrument — p. 106
-- Tool kit — p. 106
-- Torturer's tools — p. 106
+- Corpse Sight - rank 1
+- Ley Line - rank 1
+- Animal Spy - rank 2
+- Destructive Rune - rank 2
+- Prophecy - rank 2
+- Recall Soul - rank 2
+- Entrapping Pentagram - rank 3
 
-### Demon Lord's Companion named incantations
+### Relics
 
-- Corpse Sight — p. 42
-- Ley Line — p. 42
-- Animal Spy — p. 42
-- Destructive Rune — p. 42
-- Prophecy — p. 42
-- Recall Soul — p. 42
-- Entrapping Pentagram — p. 42
+All nine named relics from the core book and *Demon Lord's Companion* are documented in the coverage manifest but excluded from shop generation. They are unique, priceless adventure content rather than merchandise.
 
-## Special stock not yet implemented
+## Generator implementation
 
-These should not be generated as normal purchasable stock. They need a separate special-dealer, auction, adventure-reward or explicit GM-override mechanism.
+The application now includes a seeded shop generator. Its inventory key consists of:
 
-### Core relics
+```text
+seed + settlement type + shop type
+```
 
-- Book of Whispers — p. 211
-- Circlet of Eyes — p. 211
-- Floating Skull of Ugrash — pp. 211–212
-- Sword of Unmaking — p. 212
+Using the same three values produces the same inventory. The application can copy the seed, copy a share link containing all three values, copy the generated list and check whether a requested item or spell incantation appears in that stock.
 
-### Demon Lord's Companion relics
+The generator loads:
 
-- Blood Moon Medallion — p. 44
-- Flying Carpet — p. 44
-- Gnarled Staff of the Black Wood — p. 44
-- Underworld Caul — p. 45
-- Widdershins — p. 45
+- `items.csv`
+- `location-profiles.json`
+- `spells-core.csv`
+- `spells-dlc.csv`
+- Four rank-split *Occult Philosophy* spell files
 
-## Generator system not yet implemented
+## Remaining generator work
 
 ### Random enchanted objects
 
-The core rules do not provide a retail list of standard enchanted objects. They provide:
-
-- 20 possible object forms
-- Five d20 property tables
-- 100 possible properties in total
-- Guidance that enchanted objects are unusual discoveries rather than ordinary retail goods
-
-The shop tool therefore needs a **random enchanted-object generator**, gated behind special dealers or GM permission, rather than one catalogue row per object.
+The core rules provide forms and random property tables rather than an ordinary retail list. A separate enchanted-object generator remains outstanding. It should be restricted to auctions, curiosity dealers or explicit GM permission and should not assign a standard retail price.
 
 ## Deliberate exclusions
 
-The following individual core tools were classified as ordinary mundane equipment rather than specialist or magical shop stock:
-
-- Crowbar
-- Garrote
-- Knuckledusters
-- Net
-
-The broader armour, weapon, clothing, personal-gear and mundane-equipment sections are presently outside scope. This exclusion is explicit so that they are not accidentally described as audited and included.
-
-## Source coverage
-
-| Source | Current position |
-|---|---|
-| Core rulebook | Potions and selected specialist tools covered; several specialist tools require review; enchanted-object generator and relic handling remain outstanding. |
-| Demon Lord's Companion | Alchemical goods, forbidden items, engineering marvels and potions covered; named incantations require review; relics require special-stock handling. |
-| Demon Lord's Companion 2 | Its four traditions are represented through the incantation spell pool; it has no separate equipment chapter. |
-| Occult Philosophy | Spell pool is present but remains provisional pending duplicate, malformed-heading and source-page validation. |
-| Do We Not Die? | Ordinary poisons, poison-delivery gear and alchemical poisons are represented in the fixed-price catalogue. |
+- Relics
+- Armour and ordinary weapons
+- Clothing and personal equipment
+- General adventuring gear
+- Specialist tools
+- Vehicles other than the explicitly listed engineering marvels
 
 ## Audit command
 
@@ -112,22 +76,8 @@ Run from the repository root:
 python scripts/audit-shop-data.py
 ```
 
-The script checks:
+The normal GitHub audit reports structural findings without failing the workflow. Strict local validation is available with:
 
-- Duplicate item IDs and names
-- Missing required item fields
-- Broken references from the manifest to `items.csv`
-- Missing spell name, rank or tradition
-- Non-numeric spell ranks
-- Duplicate spell keys
-- Counts by source and manifest status
-
-It rewrites this report and returns a non-zero exit code for structural errors. Review items, special-stock omissions and deliberate exclusions remain visible but do not fail the audit.
-
-## Next data pass
-
-1. Decide which eight omitted core specialist tools enter the shop catalogue.
-2. Confirm how the seven named DLC incantations interact with normal rank-based incantation pricing.
-3. Add the enchanted-object generator tables.
-4. Add relics as non-random special records, disabled by default.
-5. Run the automated spell validation and manually inspect anything it flags.
+```bash
+AUDIT_STRICT=1 python scripts/audit-shop-data.py
+```
