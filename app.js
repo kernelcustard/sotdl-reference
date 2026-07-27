@@ -98,4 +98,15 @@
     const target = document.getElementById(linkedRule);
     if (target) target.open = true;
   }
+
+  document.querySelectorAll(".view-tab").forEach((button) => {
+    button.addEventListener("click", () => {
+      window.setTimeout(() => {
+        const url = new URL(window.location.href);
+        url.hash = button.dataset.view === "shop-view" ? "shop" : "rules-view";
+        window.history.replaceState({}, "", url);
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }, 0);
+    });
+  });
 })();
