@@ -1,29 +1,6 @@
 source,section,name,page,expected_treatment,dataset_id,status,notes
 core,potions,Core potion table,108-109,retail-template,,covered,All 9 named core potions are represented in items.csv.
-core,tools,Alchemist's kit,106,retail,alchemists-kit,covered,
-core,tools,Block and tackle,106,retail,,missing-review,Specialist utility gear omitted from initial catalogue.
-core,tools,Book printed or tome,106,retail,,missing-review,Potential occult and inscription-shop stock.
-core,tools,Crowbar,106,retail,,excluded-mundane,Ordinary equipment outside the magic-shop focus.
-core,tools,Crystal ball,106,retail,crystal-ball,covered,
-core,tools,Disguise kit,106,retail,disguise-kit,covered,
-core,tools,Garrote,106,retail,,excluded-mundane,Ordinary weapon-like equipment.
-core,tools,Healer's kit,106,retail,healers-kit,covered,
-core,tools,Holly and mistletoe,106,retail,,missing-review,Relevant to religious or occult shops.
-core,tools,Holy symbol,106,retail,,missing-review,Relevant to temple shops.
-core,tools,Holy water,106,retail,holy-water,covered,
-core,tools,Hourglass,106,retail,,missing-review,Relevant to occult and specialist shops.
-core,tools,Implement of magic,106,retail,implement-of-magic,covered,
-core,tools,Knuckledusters,106,retail,,excluded-mundane,Ordinary weapon-like equipment.
-core,tools,Lock picks,106,retail,lock-picks,covered,
-core,tools,Magnifying glass,106,retail,magnifying-glass,covered,
-core,tools,Musical instrument,106,retail,,missing-review,Relevant to Song magic and specialist shops.
-core,tools,Navigator's instruments,106,retail,navigators-instruments,covered,
-core,tools,Net,106,retail,,excluded-mundane,Ordinary adventuring equipment.
-core,tools,Poison,106,retail,poison-core,covered,
-core,tools,Spyglass,106,retail,spyglass,covered,
-core,tools,Tool kit,106,retail,,missing-review,Required for several specialist activities.
-core,tools,Torturer's tools,106,retail,,missing-review,Specialist or black-market stock.
-core,tools,Writing kit,106,retail,writing-kit,covered,
+core,tools,Core tools and specialist equipment,104-106,out-of-scope,,excluded-section,Normal and specialist tools are intentionally excluded from this special-stock generator.
 core,incantations,Incantation rank templates,109,generated-retail,incantation-rank-0|incantation-rank-1|incantation-rank-2|incantation-rank-3|incantation-rank-4|incantation-rank-5|incantation-rank-6|incantation-rank-7|incantation-rank-8|incantation-rank-9|incantation-rank-10,covered,Templates are paired dynamically with spell records.
 core,enchanted objects,Random enchanted object,207-210,special-generator,,missing-generator,Core book defines forms and 100 possible properties; not ordinary retail stock.
 core,relics,Book of Whispers,211,exclude-from-shops,,excluded-unique,Unique and priceless relic; adventure content only.
@@ -34,13 +11,13 @@ dlc1,alchemical items,Demon Lord's Companion alchemical items,24-25,retail,,cove
 dlc1,forbidden items,Demon Lord's Companion forbidden items,25-27,black-market,,covered,Nine named items represented in items.csv.
 dlc1,engineering,Demon Lord's Companion engineering marvels,27-28,retail,,covered,Seven named items represented in items.csv.
 dlc1,potions,Demon Lord's Companion potions,28-29,retail,,covered,Ten named potions represented in items.csv.
-dlc1,named incantations,Corpse Sight,42,special-incantation,,missing-review,Named incantation rather than ordinary learned spell; decide whether it joins the generated pool.
-dlc1,named incantations,Ley Line,42,special-incantation,,missing-review,
-dlc1,named incantations,Animal Spy,42,special-incantation,,missing-review,
-dlc1,named incantations,Destructive Rune,42,special-incantation,,missing-review,
-dlc1,named incantations,Prophecy,42,special-incantation,,missing-review,
-dlc1,named incantations,Recall Soul,42,special-incantation,,missing-review,
-dlc1,named incantations,Entrapping Pentagram,42,special-incantation,,missing-review,
+dlc1,named incantations,Corpse Sight,42,special-incantation,corpse-sight-incantation,covered,Rank 1 special incantation.
+dlc1,named incantations,Ley Line,42,special-incantation,ley-line-incantation,covered,Rank 1 special incantation.
+dlc1,named incantations,Animal Spy,42,special-incantation,animal-spy-incantation,covered,Rank 2 special incantation.
+dlc1,named incantations,Destructive Rune,42,special-incantation,destructive-rune-incantation,covered,Rank 2 special incantation.
+dlc1,named incantations,Prophecy,42,special-incantation,prophecy-incantation,covered,Rank 2 special incantation.
+dlc1,named incantations,Recall Soul,42,special-incantation,recall-soul-incantation,covered,Rank 2 special incantation.
+dlc1,named incantations,Entrapping Pentagram,42,special-incantation,entrapping-pentagram-incantation,covered,Rank 3 special incantation.
 dlc1,relics,Blood Moon Medallion,44,exclude-from-shops,,excluded-unique,Unique relic; adventure content only.
 dlc1,relics,Flying Carpet,44,exclude-from-shops,,excluded-unique,Unique relic; adventure content only.
 dlc1,relics,Gnarled Staff of the Black Wood,44,exclude-from-shops,,excluded-unique,Unique relic; adventure content only.
@@ -50,4 +27,4 @@ dlc2,spells,Invocation Metal Order and Soul spells,35-42,generated-incantation,,
 occult,spells,Occult Philosophy spell catalogue,12-187,generated-incantation,,covered-provisional,Machine-extracted spell files require duplicate and malformed-heading checks.
 poisoned_pages,ordinary poisons,Ordinary poisons and delivery gear,2-3,black-market,,covered,Twelve table entries represented in items.csv.
 poisoned_pages,alchemical poisons,Alchemical poison table,4,black-market,,covered,Eight named alchemical poisons represented in items.csv.
-core,mundane equipment,Armor weapons clothing personal gear and general equipment,99-107,out-of-scope,,excluded-section,Not intended for the specialist and magical shop generator unless scope expands.
+core,mundane equipment,Armor weapons clothing personal gear and general equipment,99-107,out-of-scope,,excluded-section,Not intended for the special-stock generator.
