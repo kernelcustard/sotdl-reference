@@ -53,6 +53,11 @@
   const availabilityOrder = { Common: 0, Uncommon: 1, Rare: 2, Exotic: 3, "GM permission": 4 };
   const breadthMultipliers = { standard: 3.2, broad: 4.8, extensive: 6.2 };
   const favouriteCounts = { standard: 3, broad: 4, extensive: 5 };
+  const priceRanges = {
+    standard: [1.10, 1.30],
+    broad: [0.90, 1.20],
+    extensive: [0.90, 1.10]
+  };
 
   const settlementSelect = document.querySelector("#shop-settlement");
   const breadthSelect = document.querySelector("#stock-breadth");
@@ -169,6 +174,13 @@
     return known.find((tradition) => haystack.includes(normalise(tradition))) || "";
   }
 
+  function itemRank(item) {
+    if (item.spell?.rank !== undefined) return String(item.spell.rank);
+    const fromId = String(item.id || "").match(/rank-(\d+)/)?.[1];
+    if (fromId) return fromId;
+    return String(item.tags || "").match(/(?:^|\|)rank(\d+)(?:\||$)/i)?.[1] || "";
+  }
+
   function traditionDomain(tradition) {
     const key = normalise(tradition);
     if (forbiddenTraditions.has(key)) return "forbidden";
@@ -186,12 +198,8 @@
     return (availabilityOrder[item.availability] ?? 99) <= (availabilityOrder[settlement.max_availability] ?? -1);
   }
 
-  function rankFromTemplate(template) {
-    return template.id.match(/rank-(\d+)/)?.[1] || "";
-  }
-
   function makeIncantation(template, rng, usedKeys) {
-    const rank = rankFromTemplate(template);
+    const rank = itemRank(template);
     let candidates = spells.filter((spell) => spell.rank === rank && !usedKeys.has(`incantation:${spell.id}`));
     if (!candidates.length) return null;
 
@@ -213,8 +221,8 @@
       source: spell.source,
       page: spell.page,
       category: "incantation",
-      categoryLabel: `Rank ${rank} incantation`,
-      detail: `${spell.tradition} ${String(spell.type).toLowerCase()} spell`,
+      categoryLabel: "Incantation",
+      detail: `${spell.tradition} · Rank ${rank}`,
       tradition: spell.tradition
     };
   }
@@ -225,6 +233,26 @@
       return roll < .65 ? 1 : roll < .9 ? 2 : 3;
     }
     return 1;
+  }
+
+  function applyPriceVariation(item, rng) {
+    const [minimum, maximum] = priceRanges[breadthSelect.value] || [1, 1];
+    const factor = minimum + rng() * (maximum - minimum);
+    const match = String(item.price || "").replaceAll(",", "").match(/^\s*(\d+(?:\.\d+)?)\s*(cp|ss|gc)\s*$/i);
+    if (!match) return { ...item, adjustedPriceCp: Number(item.price_cp) || 0 };
+
+    const baseUnits = Number(match[1]);
+    const denomination = match[2].toLowerCase();
+    const copperPerUnit = { cp: 1, ss: 10, gc: 100 }[denomination];
+    const adjustedUnits = Math.max(1, Math.ceil(baseUnits * factor));
+    return {
+      ...item,
+      basePrice: item.price,
+      price: `${adjustedUnits.toLocaleString("en-US")} ${denomination}`,
+      price_cp: String(adjustedUnits * copperPerUnit),
+      adjustedPriceCp: adjustedUnits * copperPerUnit,
+      priceFactor: factor
+    };
   }
 
   function chooseFavouriteTraditions(rng) {
@@ -269,17 +297,18 @@
       if (selected.category === "incantation") stockItem = makeIncantation(selected, rng, usedKeys);
       else {
         usedKeys.add(selected.id);
+        const isSpecialIncantation = selected.category === "special_incantation";
         stockItem = {
           ...selected,
           key: selected.id,
-          categoryLabel: categoryNames[selected.category] || titleCase(selected.category),
-          detail: selected.notes || "",
+          categoryLabel: isSpecialIncantation ? "Incantation" : (categoryNames[selected.category] || titleCase(selected.category)),
+          detail: isSpecialIncantation ? `${itemTradition(selected)} · Rank ${itemRank(selected)}` : (selected.notes || ""),
           tradition: itemTradition(selected)
         };
       }
       if (!stockItem) continue;
       stockItem.quantity = quantityFor(stockItem, rng);
-      generated.push(stockItem);
+      generated.push(applyPriceVariation(stockItem, rng));
     }
 
     currentStock = generated;
@@ -295,6 +324,7 @@
     if (!selectedFilters.size) return true;
     return [...selectedFilters].some((filterName) => {
       if (broadFilters[filterName]?.has(item.category)) return true;
+      if (filterName === "special") return item.category === "special_incantation";
       if (["forbidden", "clerical", "magical"].includes(filterName)) return itemDomain(item) === filterName;
       return false;
     });
@@ -319,7 +349,7 @@
   function sortItems(values, mode) {
     return [...values].sort((a, b) => {
       if (mode === "price") {
-        return (Number(a.price_cp) || 0) - (Number(b.price_cp) || 0) || a.name.localeCompare(b.name);
+        return (Number(a.adjustedPriceCp ?? a.price_cp) || 0) - (Number(b.adjustedPriceCp ?? b.price_cp) || 0) || a.name.localeCompare(b.name);
       }
       if (mode === "type") {
         const aCategory = groupCategory(a);
@@ -329,7 +359,7 @@
         if (aCategory === "incantation") {
           const traditionDifference = itemTradition(a).localeCompare(itemTradition(b));
           if (traditionDifference) return traditionDifference;
-          const rankDifference = Number(a.spell?.rank ?? rankFromTemplate(a) ?? 0) - Number(b.spell?.rank ?? rankFromTemplate(b) ?? 0);
+          const rankDifference = Number(itemRank(a) || 0) - Number(itemRank(b) || 0);
           if (rankDifference) return rankDifference;
         }
       }
@@ -445,7 +475,10 @@
   function switchView(viewId) {
     document.querySelectorAll(".app-view").forEach((view) => { view.hidden = view.id !== viewId; });
     document.querySelectorAll(".view-tab").forEach((button) => { button.setAttribute("aria-pressed", String(button.dataset.view === viewId)); });
-    window.location.hash = viewId === "shop-view" ? "shop" : "rules";
+    const url = new URL(window.location.href);
+    url.hash = viewId === "shop-view" ? "shop" : "rules-view";
+    window.history.replaceState({}, "", url);
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }
 
   async function loadData() {
@@ -480,7 +513,8 @@
       const sortInput = document.querySelector(`input[name="stock-sort"][value="${requestedSort}"]`);
       if (sortInput) sortInput.checked = true;
       const requestedFilters = parameters.get("filters");
-      if (requestedFilters) selectedFilters = new Set(requestedFilters.split(",").filter((name) => ["potions", "poison", "gear", "forbidden", "clerical", "magical"].includes(name)));
+      const allowedFilters = ["potions", "poison", "gear", "special", "forbidden", "clerical", "magical"];
+      if (requestedFilters) selectedFilters = new Set(requestedFilters.split(",").filter((name) => allowedFilters.includes(name)));
       syncFilterButtons();
 
       status.textContent = "";
