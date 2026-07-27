@@ -19,38 +19,63 @@
 
   const categoryNames = {
     potion: "Potions",
-    incantation: "Incantations",
-    special_incantation: "Special incantations",
     alchemical_item: "Alchemical items",
     poison: "Poisons",
     alchemical_poison: "Alchemical poisons",
     poison_gear: "Poison gear",
     forbidden_item: "Forbidden goods",
-    engineering_marvel: "Engineering marvels"
+    engineering_marvel: "Engineering marvels",
+    incantation: "Incantations",
+    special_incantation: "Incantations"
   };
+
+  const categoryOrder = [
+    "potion", "alchemical_item", "poison", "alchemical_poison",
+    "engineering_marvel", "poison_gear", "forbidden_item", "incantation"
+  ];
+
+  const forbiddenTraditions = new Set([
+    "chaos", "curse", "death", "demonology", "destruction",
+    "forbidden", "madness", "necromancy", "shadow"
+  ]);
+
+  const clericalTraditions = new Set([
+    "celestial", "life", "theurgy", "battle", "earth", "nature",
+    "primal", "order", "soul", "spiritualism", "air", "water", "fire"
+  ]);
+
+  const allTraditions = [
+    "Air", "Alchemy", "Alteration", "Arcana", "Battle", "Celestial", "Chaos",
+    "Conjuration", "Curse", "Death", "Demonology", "Destruction", "Divination",
+    "Earth", "Enchantment", "Fey", "Fire", "Forbidden", "Illusion", "Invocation",
+    "Life", "Madness", "Metal", "Nature", "Necromancy", "Order", "Primal",
+    "Protection", "Rune", "Shadow", "Song", "Soul", "Spiritualism", "Storm",
+    "Technomancy", "Telekinesis", "Telepathy", "Teleportation", "Theurgy", "Time",
+    "Transformation", "Water"
+  ];
+
+  const traditionLookup = new Map(allTraditions.map((name) => [name.toLowerCase(), name]));
+  const magicalTraditions = new Set(allTraditions.map((name) => name.toLowerCase()).filter((name) => !forbiddenTraditions.has(name) && !clericalTraditions.has(name)));
 
   const broadFilters = {
     potions: new Set(["potion", "alchemical_item"]),
     poison: new Set(["poison", "alchemical_poison"]),
-    gear: new Set(["engineering_marvel", "poison_gear"]),
-    special: new Set(["forbidden_item", "special_incantation"]),
-    incantations: new Set(["incantation"])
+    gear: new Set(["engineering_marvel", "poison_gear"])
   };
 
   const availabilityOrder = { Common: 0, Uncommon: 1, Rare: 2, Exotic: 3, "GM permission": 4 };
-  const breadthMultipliers = { standard: 1, broad: 1.65, extensive: 2.4 };
+  const breadthMultipliers = { standard: 3.2, broad: 4.8, extensive: 6.2 };
+  const favouriteCounts = { standard: 3, broad: 4, extensive: 5 };
 
   const settlementSelect = document.querySelector("#shop-settlement");
   const breadthSelect = document.querySelector("#stock-breadth");
-  const shopOptions = document.querySelector("#shop-options");
+  const specialisationSelect = document.querySelector("#stock-specialisation");
   const seedInput = document.querySelector("#shop-seed");
   const generateButton = document.querySelector("#generate-shop");
   const newSeedButton = document.querySelector("#new-seed");
   const copySeedButton = document.querySelector("#copy-seed");
   const copyLinkButton = document.querySelector("#copy-link");
   const copyListButton = document.querySelector("#copy-list");
-  const selectAllShopsButton = document.querySelector("#select-all-shops");
-  const clearShopsButton = document.querySelector("#clear-shops");
   const status = document.querySelector("#shop-status");
   const results = document.querySelector("#shop-results");
   const stockList = document.querySelector("#stock-list");
@@ -67,6 +92,7 @@
   let spells = [];
   let currentStock = [];
   let selectedFilters = new Set();
+  let favouriteTraditions = [];
 
   const titleCase = (value) => String(value).replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
   const normalise = (value) => String(value ?? "").toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9']+/g, " ").trim();
@@ -140,44 +166,81 @@
     return `${words[values[0] % words.length]}-${words[values[1] % words.length]}-${(values[0] ^ values[1]).toString(36)}`;
   }
 
-  function selectedShopNames() {
-    return [...shopOptions.querySelectorAll('input[type="checkbox"]:checked')].map((input) => input.value).sort();
+  function selectedSort() {
+    return document.querySelector('input[name="stock-sort"]:checked')?.value || "type";
   }
 
-  function selectedSort() {
-    return document.querySelector('input[name="stock-sort"]:checked')?.value || "name";
+  function traditionDomain(tradition) {
+    const key = normalise(tradition);
+    if (forbiddenTraditions.has(key)) return "forbidden";
+    if (clericalTraditions.has(key)) return "clerical";
+    return "magical";
+  }
+
+  function itemTradition(item) {
+    if (item.spell?.tradition) return item.spell.tradition;
+    const tags = String(item.tags || "").split("|").map((tag) => normalise(tag));
+    const match = tags.find((tag) => traditionLookup.has(tag));
+    return match ? traditionLookup.get(match) : "";
+  }
+
+  function itemDomain(item) {
+    if (broadFilters.potions.has(item.category)) return "potions";
+    if (broadFilters.poison.has(item.category)) return "poison";
+    if (broadFilters.gear.has(item.category)) return "gear";
+    if (item.category === "forbidden_item") return "forbidden";
+    if (item.category === "incantation" || item.category === "special_incantation") return traditionDomain(itemTradition(item));
+    return "magical";
   }
 
   function itemAvailableAtSettlement(item, settlement) {
     return (availabilityOrder[item.availability] ?? 99) <= (availabilityOrder[settlement.max_availability] ?? -1);
   }
 
-  function itemMatchesShop(item, shopName, shopProfile) {
-    return item.shop_types.split("|").includes(shopName) && shopProfile.categories.includes(item.category);
+  function chooseFavouriteTraditions(rng, count) {
+    const domainPools = {
+      clerical: allTraditions.filter((name) => clericalTraditions.has(name.toLowerCase())),
+      magical: allTraditions.filter((name) => magicalTraditions.has(name.toLowerCase())),
+      forbidden: allTraditions.filter((name) => forbiddenTraditions.has(name.toLowerCase()))
+    };
+    const anchor = weightedChoice(rng, { clerical: 44, magical: 46, forbidden: 10 });
+    const chosen = [];
+    while (chosen.length < count) {
+      const useAnchor = rng() < .72;
+      const domain = useAnchor ? anchor : weightedChoice(rng, { clerical: 40, magical: 45, forbidden: 15 });
+      const available = domainPools[domain].filter((name) => !chosen.includes(name));
+      const fallback = allTraditions.filter((name) => !chosen.includes(name));
+      if (!available.length && !fallback.length) break;
+      chosen.push(choose(rng, available.length ? available : fallback));
+    }
+    return chosen;
   }
 
-  function makeIncantation(template, rng, usedKeys) {
+  function makeIncantation(template, rng, usedKeys, specialised) {
     const rank = template.id.match(/rank-(\d+)/)?.[1] || "";
-    const candidates = spells.filter((spell) => spell.rank === rank);
-    for (let attempt = 0; attempt < 30 && candidates.length; attempt += 1) {
-      const spell = choose(rng, candidates);
-      const key = `incantation:${spell.id}`;
-      if (usedKeys.has(key)) continue;
-      usedKeys.add(key);
-      return {
-        ...template,
-        key,
-        name: `${spell.name} incantation`,
-        baseName: spell.name,
-        spell,
-        source: spell.source,
-        page: spell.page,
-        category: "incantation",
-        categoryLabel: `Rank ${rank} incantation`,
-        detail: `${spell.tradition} ${spell.type.toLowerCase()} spell`
-      };
+    const allCandidates = spells.filter((spell) => spell.rank === rank && !usedKeys.has(`incantation:${spell.id}`));
+    if (!allCandidates.length) return null;
+    let candidates = allCandidates;
+    if (specialised && favouriteTraditions.length && rng() < .82) {
+      const preferred = allCandidates.filter((spell) => favouriteTraditions.includes(spell.tradition));
+      if (preferred.length) candidates = preferred;
     }
-    return null;
+    const spell = choose(rng, candidates);
+    const key = `incantation:${spell.id}`;
+    usedKeys.add(key);
+    return {
+      ...template,
+      key,
+      name: `${spell.name} incantation`,
+      baseName: spell.name,
+      spell,
+      source: spell.source,
+      page: spell.page,
+      category: "incantation",
+      categoryLabel: `Rank ${rank} incantation`,
+      detail: `${spell.tradition} ${spell.type.toLowerCase()} spell`,
+      tradition: spell.tradition
+    };
   }
 
   function quantityFor(item, rng) {
@@ -188,48 +251,61 @@
     return 1;
   }
 
+  function chooseByRarity(rng, pool, rarity) {
+    const preferred = pool.filter((item) => item.availability === rarity);
+    return choose(rng, preferred.length ? preferred : pool);
+  }
+
   function generateStock() {
     if (!profiles || !items.length) return;
-    const shops = selectedShopNames();
-    if (!shops.length) { status.textContent = "Select at least one business."; return; }
-
     const seed = seedInput.value.trim() || makeSeed();
     seedInput.value = seed;
     const settlementName = settlementSelect.value;
     const breadth = breadthSelect.value;
+    const specialised = specialisationSelect.value === "specialised";
     const settlement = profiles.settlements[settlementName];
-    const multiplier = breadthMultipliers[breadth] || 1;
-    const seedKey = `${seed}|${settlementName}|${breadth}|${shops.join(",")}`;
-    const rng = mulberry32(xmur3(seedKey)());
+    const rng = mulberry32(xmur3(`${seed}|${settlementName}|${breadth}|${specialised}`)());
+    const [baseMinimum, baseMaximum] = settlement.stock_slots.special;
+    const multiplier = breadthMultipliers[breadth] || breadthMultipliers.standard;
+    const minimum = Math.max(4, Math.round(baseMinimum * multiplier));
+    const maximum = Math.max(minimum, Math.round(baseMaximum * multiplier));
+    const slotCount = randomInteger(rng, minimum, maximum);
+
+    favouriteTraditions = specialised ? chooseFavouriteTraditions(rng, favouriteCounts[breadth] || 3) : [];
+
+    const available = items.filter((item) => itemAvailableAtSettlement(item, settlement));
+    const templates = available.filter((item) => item.category === "incantation");
+    const fixedItems = available.filter((item) => item.category !== "incantation");
     const usedKeys = new Set();
     const generated = [];
 
-    for (const shopName of shops) {
-      const shop = profiles.shops[shopName];
-      const [baseMinimum, baseMaximum] = settlement.stock_slots.special;
-      const minimum = Math.max(shopName === "black_market" ? 0 : 1, Math.round(baseMinimum * multiplier));
-      const maximum = Math.max(minimum, Math.round(baseMaximum * multiplier));
-      const slotCount = randomInteger(rng, minimum, maximum);
-      const eligible = items.filter((item) => itemAvailableAtSettlement(item, settlement) && itemMatchesShop(item, shopName, shop));
+    for (let slot = 0; slot < slotCount; slot += 1) {
+      const rarity = weightedChoice(rng, settlement.rarity_weights);
+      const unusedFixed = fixedItems.filter((item) => !usedKeys.has(item.id));
+      const attemptIncantation = templates.length && (rng() < .46 || !unusedFixed.length);
+      let stockItem = null;
 
-      for (let slot = 0; slot < slotCount && eligible.length; slot += 1) {
-        const preferredRarity = weightedChoice(rng, settlement.rarity_weights);
-        let pool = eligible.filter((item) => item.availability === preferredRarity && !usedKeys.has(item.id));
-        if (!pool.length) pool = eligible.filter((item) => !usedKeys.has(item.id));
-        if (!pool.length) break;
-
-        const selected = choose(rng, pool);
-        let stockItem;
-        if (selected.category === "incantation") stockItem = makeIncantation(selected, rng, usedKeys);
-        else {
-          usedKeys.add(selected.id);
-          stockItem = { ...selected, key: selected.id, categoryLabel: categoryNames[selected.category] || titleCase(selected.category), detail: selected.notes || "" };
-        }
-        if (!stockItem) continue;
-        stockItem.quantity = quantityFor(stockItem, rng);
-        stockItem.location = titleCase(shopName);
-        generated.push(stockItem);
+      if (attemptIncantation) {
+        const templatePool = templates.filter((item) => item.availability === rarity);
+        const template = choose(rng, templatePool.length ? templatePool : templates);
+        stockItem = makeIncantation(template, rng, usedKeys, specialised);
+      } else if (unusedFixed.length) {
+        const selected = chooseByRarity(rng, unusedFixed, rarity);
+        usedKeys.add(selected.id);
+        const tradition = itemTradition(selected);
+        stockItem = {
+          ...selected,
+          key: selected.id,
+          categoryLabel: categoryNames[selected.category] || titleCase(selected.category),
+          detail: selected.notes || "",
+          tradition
+        };
       }
+
+      if (!stockItem) continue;
+      stockItem.quantity = quantityFor(stockItem, rng);
+      stockItem.domain = itemDomain(stockItem);
+      generated.push(stockItem);
     }
 
     currentStock = generated;
@@ -237,15 +313,14 @@
     syncFilterButtons();
     itemQuery.value = "";
     itemCheckResult.textContent = "";
-    renderStock();
-    updateShareUrl();
     results.hidden = false;
     status.textContent = "";
+    renderStock();
   }
 
   function matchesBroadFilter(item) {
     if (!selectedFilters.size) return true;
-    return [...selectedFilters].some((filterName) => broadFilters[filterName]?.has(item.category));
+    return selectedFilters.has(item.domain);
   }
 
   function filteredStock() {
@@ -253,15 +328,29 @@
     return currentStock.filter((item) => {
       if (!matchesBroadFilter(item)) return false;
       if (!query) return true;
-      const haystack = [item.name, item.baseName, item.spell?.name, item.categoryLabel, item.location, item.detail, sourceNames[item.source]].filter(Boolean).map(normalise).join(" ");
+      const haystack = [item.name, item.baseName, item.spell?.name, item.categoryLabel, item.tradition, item.detail, sourceNames[item.source]].filter(Boolean).map(normalise).join(" ");
       return haystack.includes(query);
     });
   }
 
+  function groupCategory(item) {
+    return item.category === "special_incantation" ? "incantation" : item.category;
+  }
+
   function sortItems(values, mode) {
     return [...values].sort((a, b) => {
-      if (mode === "type") return (categoryNames[a.category] || a.category).localeCompare(categoryNames[b.category] || b.category) || a.name.localeCompare(b.name);
-      if (mode === "location") return a.location.localeCompare(b.location) || a.name.localeCompare(b.name);
+      if (mode === "type") {
+        const aCategory = groupCategory(a);
+        const bCategory = groupCategory(b);
+        const categoryDifference = categoryOrder.indexOf(aCategory) - categoryOrder.indexOf(bCategory);
+        if (categoryDifference) return categoryDifference;
+        if (aCategory === "incantation") {
+          const traditionDifference = String(a.tradition || "").localeCompare(String(b.tradition || ""));
+          if (traditionDifference) return traditionDifference;
+          const rankDifference = Number(a.spell?.rank ?? String(a.tags || "").match(/rank(\d+)/)?.[1] ?? 0) - Number(b.spell?.rank ?? String(b.tags || "").match(/rank(\d+)/)?.[1] ?? 0);
+          if (rankDifference) return rankDifference;
+        }
+      }
       return a.name.localeCompare(b.name);
     });
   }
@@ -269,22 +358,18 @@
   function makeStockCard(item) {
     const article = document.createElement("article");
     article.className = "stock-card";
-
     const heading = document.createElement("div");
     heading.className = "stock-card-heading";
     const title = document.createElement("h3");
-    title.append(document.createTextNode(item.name + " "));
-    const location = document.createElement("span");
-    location.className = "stock-location-inline";
-    location.textContent = `(${item.location})`;
-    title.append(location);
+    title.textContent = item.name;
     const price = document.createElement("strong");
     price.textContent = item.price;
     heading.append(title, price);
 
     const meta = document.createElement("p");
     meta.className = "stock-meta-line";
-    meta.textContent = `${item.categoryLabel} · ${item.availability} · qty ${item.quantity}`;
+    const traditionText = item.tradition ? ` · ${item.tradition}` : "";
+    meta.textContent = `${item.categoryLabel}${traditionText} · ${item.availability} · qty ${item.quantity}`;
     article.append(heading, meta);
 
     if (item.detail) {
@@ -305,10 +390,12 @@
     const mode = selectedSort();
     const visible = sortItems(filteredStock(), mode);
     stockList.replaceChildren();
-
     shopTitle.textContent = `${titleCase(settlementSelect.value)} Stock`;
     const settlement = profiles.settlements[settlementSelect.value];
-    shopKey.textContent = `Seed: ${seedInput.value} · maximum ${settlement.max_availability}`;
+    const specialisationText = specialisationSelect.value === "specialised"
+      ? `Specialised: ${favouriteTraditions.join(", ")}`
+      : "General stock";
+    shopKey.textContent = `Seed: ${seedInput.value} · maximum ${settlement.max_availability} · ${specialisationText}`;
 
     if (!visible.length) {
       const empty = document.createElement("p");
@@ -318,19 +405,20 @@
     } else if (mode === "name") {
       stockList.replaceChildren(...visible.map(makeStockCard));
     } else {
-      const keyFor = mode === "type" ? (item) => categoryNames[item.category] || titleCase(item.category) : (item) => item.location;
       const groups = new Map();
       for (const item of visible) {
-        const key = keyFor(item);
+        const key = groupCategory(item);
         if (!groups.has(key)) groups.set(key, []);
         groups.get(key).push(item);
       }
-      for (const [groupName, groupItems] of groups) {
+      for (const category of categoryOrder) {
+        const groupItems = groups.get(category);
+        if (!groupItems?.length) continue;
         const section = document.createElement("section");
         section.className = "stock-section";
         const title = document.createElement("h3");
         title.className = "stock-section-title";
-        title.textContent = groupName;
+        title.textContent = categoryNames[category] || titleCase(category);
         const cards = document.createElement("div");
         cards.className = "stock-cards";
         cards.replaceChildren(...groupItems.map(makeStockCard));
@@ -356,7 +444,7 @@
     url.searchParams.set("seed", seedInput.value);
     url.searchParams.set("settlement", settlementSelect.value);
     url.searchParams.set("breadth", breadthSelect.value);
-    url.searchParams.set("shops", selectedShopNames().join(","));
+    url.searchParams.set("specialisation", specialisationSelect.value);
     url.searchParams.set("sort", selectedSort());
     if (selectedFilters.size) url.searchParams.set("filters", [...selectedFilters].sort().join(","));
     else url.searchParams.delete("filters");
@@ -366,9 +454,8 @@
 
   function stockAsText() {
     const visible = sortItems(filteredStock(), selectedSort());
-    const heading = `${shopTitle.textContent}\n${shopKey.textContent}`;
-    const lines = visible.map((item) => `- ${item.name} (${item.location}) x${item.quantity} — ${item.price} — ${item.availability} — ${sourceNames[item.source] ?? item.source}, p. ${item.page}`);
-    return [heading, "", ...lines].join("\n");
+    const lines = visible.map((item) => `- ${item.name} x${item.quantity} — ${item.price} — ${item.availability} — ${sourceNames[item.source] ?? item.source}, p. ${item.page}`);
+    return [shopTitle.textContent, shopKey.textContent, "", ...lines].join("\n");
   }
 
   async function copyText(text, successMessage) {
@@ -384,21 +471,6 @@
     document.querySelectorAll(".app-view").forEach((view) => { view.hidden = view.id !== viewId; });
     document.querySelectorAll(".view-tab").forEach((button) => { button.setAttribute("aria-pressed", String(button.dataset.view === viewId)); });
     window.location.hash = viewId === "shop-view" ? "shop" : "rules";
-  }
-
-  function renderShopOptions(requested) {
-    const defaults = new Set(["apothecary", "occult", "temple", "engineer"]);
-    const requestedSet = requested ? new Set(requested.split(",").filter(Boolean)) : defaults;
-    shopOptions.replaceChildren(...Object.keys(profiles.shops).map((name) => {
-      const label = document.createElement("label");
-      label.className = "shop-option";
-      const input = document.createElement("input");
-      input.type = "checkbox";
-      input.value = name;
-      input.checked = requestedSet.has(name);
-      label.append(input, document.createTextNode(titleCase(name)));
-      return label;
-    }));
   }
 
   async function loadData() {
@@ -426,14 +498,14 @@
       const parameters = new URLSearchParams(window.location.search);
       settlementSelect.value = profiles.settlements[parameters.get("settlement")] ? parameters.get("settlement") : "city";
       breadthSelect.value = parameters.get("breadth") || "broad";
+      specialisationSelect.value = parameters.get("specialisation") === "specialised" ? "specialised" : "general";
       seedInput.value = parameters.get("seed") || makeSeed();
-      renderShopOptions(parameters.get("shops"));
 
-      const requestedSort = parameters.get("sort");
+      const requestedSort = parameters.get("sort") || "type";
       const sortInput = document.querySelector(`input[name="stock-sort"][value="${requestedSort}"]`);
       if (sortInput) sortInput.checked = true;
       const requestedFilters = parameters.get("filters");
-      if (requestedFilters) selectedFilters = new Set(requestedFilters.split(",").filter((name) => broadFilters[name]));
+      if (requestedFilters) selectedFilters = new Set(requestedFilters.split(",").filter((name) => ["potions", "poison", "gear", "forbidden", "clerical", "magical"].includes(name)));
       syncFilterButtons();
 
       status.textContent = `${items.length} catalogue entries and ${spells.length} spells loaded.`;
@@ -453,8 +525,6 @@
   copySeedButton.addEventListener("click", () => copyText(seedInput.value, "Seed copied."));
   copyLinkButton.addEventListener("click", () => copyText(window.location.href, "Share link copied."));
   copyListButton.addEventListener("click", () => copyText(stockAsText(), "Visible stock copied."));
-  selectAllShopsButton.addEventListener("click", () => shopOptions.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = true; }));
-  clearShopsButton.addEventListener("click", () => shopOptions.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false; }));
   itemQuery.addEventListener("input", renderStock);
   seedInput.addEventListener("keydown", (event) => { if (event.key === "Enter") generateStock(); });
 
