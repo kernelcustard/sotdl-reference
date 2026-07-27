@@ -36,37 +36,40 @@
     <section id="shop-view" class="app-view" hidden>
       <div class="shop-controls compact-panel">
         <label class="compact-field">
-          <span>Settlement</span>
-          <select id="shop-settlement"></select>
+          <span class="visually-hidden">Settlement</span>
+          <select id="shop-settlement" aria-label="Settlement"></select>
         </label>
         <label class="compact-field">
-          <span>Breadth</span>
-          <select id="stock-breadth">
-            <option value="standard">Standard</option>
-            <option value="broad" selected>Broad restock</option>
-            <option value="extensive">Extensive</option>
+          <span class="visually-hidden">Stock activity</span>
+          <select id="stock-breadth" aria-label="Stock activity">
+            <option value="standard">Normal</option>
+            <option value="broad" selected>Busy</option>
+            <option value="extensive">Trading Hub</option>
           </select>
         </label>
         <label class="compact-field">
-          <span>Specialisation</span>
-          <select id="stock-specialisation">
+          <span class="visually-hidden">Specialisation</span>
+          <select id="stock-specialisation" aria-label="Specialisation">
             <option value="general" selected>General</option>
             <option value="specialised">Specialised</option>
           </select>
         </label>
+
         <label class="seed-control seed-inline">
-          <span>Seed</span>
-          <input id="shop-seed" type="text" autocomplete="off" spellcheck="false" placeholder="Enter or generate a seed">
+          <span class="visually-hidden">Seed</span>
+          <span class="seed-box">
+            <span class="seed-prefix" aria-hidden="true">Seed:</span>
+            <input id="shop-seed" type="text" autocomplete="off" spellcheck="false" aria-label="Seed">
+          </span>
         </label>
         <div class="button-row compact-actions">
           <button id="generate-shop" class="primary-button" type="button">Generate</button>
           <button id="new-seed" type="button">New seed</button>
-          <button id="copy-seed" type="button">Copy seed</button>
           <button id="copy-link" type="button">Share</button>
         </div>
       </div>
 
-      <p id="shop-status" class="shop-status" aria-live="polite">Loading shop data…</p>
+      <p id="shop-status" class="shop-status" aria-live="polite">Loading stock data…</p>
 
       <section id="shop-results" hidden>
         <div class="shop-results-header compact-results-header">
@@ -86,6 +89,7 @@
               <legend>Sort by</legend>
               <label><input type="radio" name="stock-sort" value="type" checked><span>Type</span></label>
               <label><input type="radio" name="stock-sort" value="name"><span>Name</span></label>
+              <label><input type="radio" name="stock-sort" value="price"><span>Price</span></label>
             </fieldset>
           </details>
         </div>
@@ -100,7 +104,6 @@
           <button type="button" data-filter="magical" aria-pressed="false">Magical</button>
         </div>
 
-        <p id="item-check-result" class="check-result" aria-live="polite"></p>
         <div id="stock-list" class="stock-list compact-stock-list" aria-live="polite"></div>
         <div class="stock-footer-meta">
           <p id="visible-stock-count" class="result-count"></p>
@@ -117,6 +120,6 @@
   <script src="data/rules.js?v=__BUILD_VERSION__"></script>
   <script src="data/core-combat-rules.js?v=__BUILD_VERSION__"></script>
   <script src="app.js?v=__BUILD_VERSION__"></script>
-  <script src="shop.js?v=__BUILD_VERSION__"></script>
+  <script src="shop-v2.js?v=__BUILD_VERSION__"></script>
 </body>
 </html>
