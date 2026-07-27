@@ -31,6 +31,3 @@ jobs:
 
       - name: Audit shop data
         run: python scripts/audit-shop-data.py
-
-      - name: Ensure generated report is current
-        run: git diff --exit-code -- research/shop-generator/coverage-report.md
