@@ -15,10 +15,10 @@
     <div class="shell">
       <p class="eyebrow">Quick reference</p>
       <h1>Shadow of the Demon Lord</h1>
-      <p class="intro">Search concise rules summaries or generate reproducible special-shop stock.</p>
+      <p class="intro">Search concise rules summaries or generate reproducible settlement stock.</p>
       <nav class="view-tabs" aria-label="Application sections">
         <button class="view-tab" type="button" data-view="rules-view" aria-pressed="true">Rules</button>
-        <button class="view-tab" type="button" data-view="shop-view" aria-pressed="false">Shop generator</button>
+        <button class="view-tab" type="button" data-view="shop-view" aria-pressed="false">Stock generator</button>
       </nav>
     </div>
   </header>
@@ -35,8 +35,8 @@
 
     <section id="shop-view" class="app-view" hidden>
       <div class="shop-intro">
-        <h2>Special-shop stock</h2>
-        <p>Generate potions, incantations, alchemical items, poisons, forbidden goods and engineering marvels. Relics and ordinary equipment are excluded.</p>
+        <h2>Settlement stock</h2>
+        <p>Generate one composite shopping list across the selected businesses. Potions, incantations, alchemical items, poisons, forbidden goods and engineering marvels are included. Relics and ordinary equipment are excluded.</p>
       </div>
 
       <div class="shop-controls">
@@ -45,15 +45,29 @@
           <select id="shop-settlement"></select>
         </label>
         <label>
-          Shop type
-          <select id="shop-type"></select>
+          Stock breadth
+          <select id="stock-breadth">
+            <option value="standard">Standard</option>
+            <option value="broad" selected>Broad restock</option>
+            <option value="extensive">Extensive</option>
+          </select>
         </label>
+
+        <fieldset class="shop-picker">
+          <legend>Businesses present</legend>
+          <div class="shop-picker-actions">
+            <button id="select-all-shops" type="button">Select all</button>
+            <button id="clear-shops" type="button">Clear</button>
+          </div>
+          <div id="shop-options" class="shop-options"></div>
+        </fieldset>
+
         <label class="seed-control">
           Seed
           <input id="shop-seed" type="text" autocomplete="off" spellcheck="false" placeholder="Enter or generate a seed">
         </label>
         <div class="button-row">
-          <button id="generate-shop" class="primary-button" type="button">Generate stock</button>
+          <button id="generate-shop" class="primary-button" type="button">Generate settlement stock</button>
           <button id="new-seed" type="button">New seed</button>
           <button id="copy-seed" type="button">Copy seed</button>
           <button id="copy-link" type="button">Copy share link</button>
@@ -68,19 +82,44 @@
             <h2 id="shop-title">Available stock</h2>
             <p id="shop-key" class="shop-key"></p>
           </div>
-          <button id="copy-list" type="button">Copy list</button>
+          <button id="copy-list" type="button">Copy visible list</button>
         </div>
-        <div id="stock-list" class="stock-list" aria-live="polite"></div>
 
-        <div class="item-checker">
-          <h3>Check a requested item</h3>
-          <p>Search the generated stock. Spell names are checked against any generated incantations.</p>
+        <div class="item-checker item-checker-top">
+          <h3>Find or check an item</h3>
+          <p>Search the generated settlement stock. This also searches spell names within generated incantations.</p>
           <div class="checker-row">
             <input id="item-query" type="search" placeholder="For example: healing potion or fireball" autocomplete="off">
             <button id="check-item" type="button">Check</button>
           </div>
           <p id="item-check-result" class="check-result" aria-live="polite"></p>
         </div>
+
+        <div class="stock-view-controls" aria-label="Stock display controls">
+          <label>
+            Filter
+            <select id="stock-filter"><option value="all">All item types</option></select>
+          </label>
+          <label>
+            Sort
+            <select id="stock-sort">
+              <option value="name">Name</option>
+              <option value="type">Item type</option>
+              <option value="location">Location</option>
+            </select>
+          </label>
+          <label>
+            Group
+            <select id="stock-group">
+              <option value="type">Item type</option>
+              <option value="location">Location</option>
+              <option value="none">No sections</option>
+            </select>
+          </label>
+        </div>
+
+        <p id="visible-stock-count" class="result-count"></p>
+        <div id="stock-list" class="stock-list" aria-live="polite"></div>
       </section>
     </section>
   </main>
