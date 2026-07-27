@@ -60,6 +60,7 @@ h1 { margin: 0; max-width: 14ch; font-family: Georgia, "Times New Roman", serif;
 .shop-status { min-height: 0; margin: 0; color: #a99f94; font-size: .78rem; }
 .compact-results-header { display: flex; justify-content: space-between; align-items: center; gap: .7rem; margin: .55rem 0 .65rem; }
 .compact-results-header h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.35rem; }
+.shop-results-actions { display: flex; gap: .45rem; flex-wrap: wrap; justify-content: flex-end; }
 .compact-results-header button { padding: .42rem .65rem; font-size: .76rem; }
 
 .stock-toolbar { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: .45rem; align-items: center; margin-bottom: .4rem; }
@@ -81,7 +82,7 @@ h1 { margin: 0; max-width: 14ch; font-family: Georgia, "Times New Roman", serif;
 .stock-section { display: grid; gap: .35rem; }
 .stock-section-title { margin: .45rem 0 .05rem; padding-bottom: .25rem; border-bottom: 1px solid #4a3b31; color: #e7b48d; font-size: .9rem; letter-spacing: .03em; text-transform: uppercase; }
 .stock-cards { display: grid; gap: .35rem; }
-.stock-card { display: grid; grid-template-columns: minmax(0,1fr) minmax(5.5rem,auto); gap: .18rem .8rem; padding: .56rem .68rem; border: 1px solid #352e27; border-radius: .58rem; background: rgba(23,19,15,.82); }
+.stock-card { display: grid; grid-template-columns: minmax(0,1fr) minmax(5.8rem,auto); gap: .18rem .8rem; padding: .56rem .68rem; border: 1px solid #352e27; border-radius: .58rem; background: rgba(23,19,15,.82); }
 .stock-card-heading { display: contents; }
 .stock-card h3, .stock-card h4 { grid-column: 1; margin: 0; font-size: .9rem; font-weight: 650; }
 .stock-card strong { grid-column: 2; grid-row: 1; justify-self: end; text-align: right; color: #e7b48d; font-size: .84rem; white-space: nowrap; }
@@ -91,6 +92,14 @@ h1 { margin: 0; max-width: 14ch; font-family: Georgia, "Times New Roman", serif;
 .stock-footer-meta { display: flex; justify-content: space-between; gap: .8rem; margin-top: .65rem; padding-top: .45rem; border-top: 1px solid #2f2822; }
 .stock-footer-meta p { margin: 0; color: #8f877f; font-size: .72rem; }
 .stock-footer-meta .shop-key { text-align: right; }
+
+body.player-stock-view .shop-controls,
+body.player-stock-view .shop-status {
+  display: none;
+}
+body.player-stock-view .site-header .intro {
+  margin-bottom: .75rem;
+}
 
 @media (max-width: 700px) {
   .site-header { padding-top: 2rem; }
@@ -108,4 +117,5 @@ h1 { margin: 0; max-width: 14ch; font-family: Georgia, "Times New Roman", serif;
   .stock-source { white-space: normal; }
   .stock-footer-meta { display: grid; }
   .stock-footer-meta .shop-key { text-align: left; }
+  .shop-results-actions { justify-content: flex-start; }
 }
