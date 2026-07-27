@@ -1,0 +1,256 @@
+id,name,tradition,type,rank,source,page
+occult-blink,Blink,Teleportation,Utility,0,occult,118
+occult-block-strikes,Block Strikes,Telekinesis,Utility,0,occult,114
+occult-burst,Burst,Destruction,Attack,0,occult,44
+occult-carve-the-flesh,Carve The Flesh,Forbidden,Attack,0,occult,58
+occult-chameleon,Chameleon,Transformation,Utility,0,occult,127
+occult-chaos-shield,Chaos Shield,Chaos,Utility,0,occult,29
+occult-chaotic-eruption,Chaotic Eruption,Chaos,Attack,0,occult,29
+occult-choking-smoke,Choking Smoke,Fire,Utility,0,occult,55
+occult-choose-outcome,Choose Outcome,Order,Utility,0,occult,83
+occult-conceal-object,Conceal Object,Illusion,Utility,0,occult,61
+occult-conjure-tiny-monster,Conjure Tiny Monster,Conjuration,Utility,0,occult,32
+occult-consequence,Consequence,Time,Utility,0,occult,124
+occult-convincing-word,Convincing Word,Enchantment,Attack,0,occult,50
+occult-danger-sense,Danger Sense,Protection,Utility,0,occult,89
+occult-darkling-s-raiment,Darkling’s Raiment,Shadow,Utility,0,occult,95
+occult-death-ward,Death Ward,Life,Utility,0,occult,69
+occult-destroy-death,Destroy Death,Life,Attack,0,occult,69
+occult-distraction,Distraction,Enchantment,Attack,0,occult,50
+occult-drag,Drag,Telekinesis,Attack,0,occult,114
+occult-drench,Drench,Storm,Utility,0,occult,107
+occult-earth-walker,Earth Walker,Earth,Utility,0,occult,48
+occult-electric-eel-skin,Electric Eel Skin,Storm,Utility,0,occult,107
+occult-empty-mind,Empty Mind,Telepathy,Utility,0,occult,116
+occult-energy-burst,Energy Burst,Conjuration,Attack,0,occult,32
+occult-eyes-of-my-enemy,Eyes Of My Enemy,Telepathy,Attack,0,occult,116
+occult-face-of-death,Face Of Death,Death,Attack,0,occult,38
+occult-face-rip,Face Rip,Forbidden,Utility,0,occult,58
+occult-failure,Failure,Curse,Attack,0,occult,35
+occult-falling-leaves,Falling Leaves,Nature,Utility,0,occult,77
+occult-fault-in-steel,Fault In Steel,Metal,Attack,0,occult,74
+occult-feat-of-will,Feat Of Will,Soul,Utility,0,occult,101
+occult-filthy-limerick,Filthy Limerick,Song,Attack,0,occult,98
+occult-focused-strike,Focused Strike,Soul,Utility,0,occult,101
+occult-frightful-spirit,Frightful Spirit,Spiritualism,Utility,0,occult,104
+occult-gatecrasher,Gatecrasher,Technomancy,Utility,0,occult,110
+occult-grasping-growth,Grasping Growth,Nature,Attack,0,occult,77
+occult-helping-hand,Helping Hand,Arcana,Utility,0,occult,22
+occult-icicle,Icicle,Water,Attack,0,occult,129
+occult-illumination,Illumination,Celestial,Utility,0,occult,26
+occult-legerdemain,Legerdemain,Arcana,Utility,0,occult,22
+occult-lick-your-wounds,Lick Your Wounds,Primal,Utility,0,occult,86
+occult-manipulate-flame,Manipulate Flame,Fire,Utility,0,occult,55
+occult-necromancer,Necromancer,Necromancy,Attack,0,occult,80
+occult-obscuring-cloud,Obscuring Cloud,Illusion,Utility,0,occult,61
+occult-ordered-strike,Ordered Strike,Order,Utility,0,occult,83
+occult-otherworldly-scream,Otherworldly Scream,Demonology,Attack,0,occult,41
+occult-precognitive-attack,Precognitive Attack,Divination,Utility,0,occult,46
+occult-precognitive-defense,Precognitive Defense,Divination,Utility,0,occult,46
+occult-preservation,Preservation,Alchemy,Utility,0,occult,16
+occult-pressing-strike,Pressing Strike,Battle,Attack,0,occult,24
+occult-prick,Prick,Fey,Attack,0,occult,52
+occult-primal-might,Primal Might,Primal,Utility,0,occult,86
+occult-radiant-shield,Radiant Shield,Celestial,Utility,0,occult,26
+occult-retry,Retry,Time,Utility,0,occult,124
+occult-reveal-unspeakable-truth,Reveal Unspeakable Truth,Madness,Attack,0,occult,71
+occult-righteous-smite,Righteous Smite,Theurgy,Attack,0,occult,120
+occult-rime,Rime,Water,Utility,0,occult,129
+occult-rune-of-invisibility,Rune Of Invisibility,Rune,Utility,0,occult,92
+occult-rune-of-prohibition,Rune Of Prohibition,Rune,Utility,0,occult,92
+occult-savage-strike,Savage Strike,Battle,Attack,0,occult,24
+occult-serenity,Serenity,Madness,Utility,0,occult,71
+occult-shimmering-wall,Shimmering Wall,Air,Utility,0,occult,13
+occult-short-hop,Short Hop,Teleportation,Utility,0,occult,118
+occult-shroud,Shroud,Death,Utility,0,occult,38
+occult-spirit-world,Spirit World,Spiritualism,Utility,0,occult,104
+occult-splinter,Splinter,Destruction,Attack,0,occult,44
+occult-steal-face,Steal Face,Necromancy,Utility,0,occult,80
+occult-steal-shadow,Steal Shadow,Shadow,Attack,0,occult,95
+occult-steel-skin,Steel Skin,Metal,Utility,0,occult,74
+occult-stone-gauntlet,Stone Gauntlet,Earth,Utility,0,occult,48
+occult-the-watcher,The Watcher,Invocation,Utility,0,occult,64
+occult-trip,Trip,Fey,Attack,0,occult,52
+occult-triumph-of-faith,Triumph Of Faith,Theurgy,Utility,0,occult,120
+occult-twisted-words,Twisted Words,Curse,Attack,0,occult,35
+occult-unfailing-tracker,Unfailing Tracker,Technomancy,Attack,0,occult,110
+occult-unlock-potential,Unlock Potential,Alteration,Utility,0,occult,20
+occult-untouchable-object,Untouchable Object,Protection,Utility,0,occult,89
+occult-uplifting-melody,Uplifting Melody,Song,Utility,0,occult,98
+occult-uplifting-step,Uplifting Step,Air,Utility,0,occult,13
+occult-venomous-dart,Venomous Dart,Alchemy,Utility,0,occult,16
+occult-warp-flesh,Warp Flesh,Alteration,Attack,0,occult,20
+occult-weapon-appendage,Weapon Appendage,Transformation,Attack,0,occult,127
+occult-written-in-blood,Written In Blood,Demonology,Utility,0,occult,41
+occult-aid-from-the-outer-gods,Aid From The Outer Gods,Madness,Utility,1,occult,71
+occult-anticipation,Anticipation,Telepathy,Utility,1,occult,116
+occult-arrow-of-endings,Arrow Of Endings,Death,Attack,1,occult,38
+occult-attraction,Attraction,Enchantment,Attack,1,occult,50
+occult-befuddle,Befuddle,Illusion,Attack,1,occult,61
+occult-bend-space,Bend Space,Teleportation,Utility,1,occult,118
+occult-binding-shackles,Binding Shackles,Protection,Attack,1,occult,89
+occult-black-breath,Black Breath,Madness,Attack,1,occult,71
+occult-blazing-columns,Blazing Columns,Fire,Attack,1,occult,56
+occult-blinding-blot,Blinding Blot,Shadow,Attack,1,occult,95
+occult-bone-armor,Bone Armor,Necromancy,Utility,1,occult,80
+occult-borrowed-time,Borrowed Time,Time,Utility,1,occult,124
+occult-bountiful-vitality,Bountiful Vitality,Life,Utility,1,occult,69
+occult-breastwork,Breastwork,Earth,Utility,1,occult,48
+occult-bury-the-hatchet,Bury The Hatchet,Teleportation,Attack,1,occult,118
+occult-cacophonous-utterance,Cacophonous Utterance,Song,Attack,1,occult,98
+occult-call-poltergeist,Call Poltergeist,Spiritualism,Utility,1,occult,104
+occult-censure,Censure,Theurgy,Attack,1,occult,120
+occult-certain-strike,Certain Strike,Battle,Utility,1,occult,24
+occult-charnel-stench,Charnel Stench,Necromancy,Attack,1,occult,80
+occult-cloudburst,Cloudburst,Water,Utility,1,occult,129
+occult-conjure-servant,Conjure Servant,Conjuration,Utility,1,occult,32
+occult-darkening-blades,Darkening Blades,Shadow,Attack,1,occult,95
+occult-deflecting-field,Deflecting Field,Telekinesis,Utility,1,occult,114
+occult-delusion,Delusion,Illusion,Attack,1,occult,61
+occult-devolve,Devolve,Transformation,Utility,1,occult,127
+occult-draw-iron,Draw Iron,Metal,Utility,1,occult,74
+occult-dream-worm,Dream Worm,Madness,Attack,1,occult,71
+occult-electrified-chain,Electrified Chain,Technomancy,Attack,1,occult,110
+occult-ensnare,Ensnare,Earth,Attack,1,occult,48
+occult-fangs-of-the-serpent,Fangs Of The Serpent,Battle,Attack,1,occult,24
+occult-fire-bottle,Fire Bottle,Alchemy,Utility,1,occult,16
+occult-flying-knives,Flying Knives,Conjuration,Attack,1,occult,32
+occult-forbidden-knowledge,Forbidden Knowledge,Madness,Utility,1,occult,71
+occult-fumble,Fumble,Fey,Attack,1,occult,52
+occult-gird-mind,Gird Mind,Telepathy,Utility,1,occult,116
+occult-green-tongue,Green Tongue,Nature,Utility,1,occult,77
+occult-guarded-soul,Guarded Soul,Soul,Utility,1,occult,101
+occult-guiding-sprite,Guiding Sprite,Fey,Utility,1,occult,52
+occult-heat-wave,Heat Wave,Air,Attack,1,occult,13
+occult-incandescent-bomb,Incandescent Bomb,Technomancy,Utility,1,occult,110
+occult-jolt,Jolt,Storm,Attack,1,occult,107
+occult-killing-urge,Killing Urge,Battle,Attack,1,occult,24
+occult-leaf-on-the-wind,Leaf On The Wind,Soul,Utility,1,occult,101
+occult-life-surge,Life Surge,Life,Utility,1,occult,69
+occult-loathing,Loathing,Enchantment,Attack,1,occult,50
+occult-logic-prison,Logic Prison,Order,Attack,1,occult,83
+occult-mad-laughter,Mad Laughter,Curse,Attack,1,occult,35
+occult-maim,Maim,Destruction,Attack,1,occult,44
+occult-malform,Malform,Alteration,Attack,1,occult,20
+occult-mantle-of-holiness,Mantle Of Holiness,Theurgy,Utility,1,occult,120
+occult-mark-of-the-beast,Mark Of The Beast,Demonology,Attack,1,occult,41
+occult-minor-demon,Minor Demon,Demonology,Utility,1,occult,41
+occult-omen,Omen,Theurgy,Utility,1,occult,120
+occult-ordered-defense,Ordered Defense,Order,Utility,1,occult,83
+occult-perfect-target,Perfect Target,Protection,Attack,1,occult,89
+occult-pinning-spike,Pinning Spike,Metal,Utility,1,occult,74
+occult-pollen-burst,Pollen Burst,Nature,Attack,1,occult,77
+occult-potent-magic,Potent Magic,Arcana,Utility,1,occult,22
+occult-primal-scream,Primal Scream,Primal,Attack,1,occult,86
+occult-randomness,Randomness,Chaos,Utility,1,occult,29
+occult-reveal-fate,Reveal Fate,Divination,Attack,1,occult,46
+occult-rune-of-force,Rune Of Force,Rune,Utility,1,occult,92
+occult-rune-of-suffering,Rune Of Suffering,Rune,Utility,1,occult,92
+occult-seal-the-cavity,Seal The Cavity,Forbidden,Attack,1,occult,58
+occult-seize,Seize,Telekinesis,Attack,1,occult,114
+occult-sense-peril,Sense Peril,Divination,Utility,1,occult,46
+occult-serpent-tongue,Serpent Tongue,Forbidden,Attack,1,occult,59
+occult-sleeplessness,Sleeplessness,Curse,Attack,1,occult,35
+occult-sleet,Sleet,Storm,Utility,1,occult,107
+occult-snap-bone,Snap Bone,Destruction,Attack,1,occult,44
+occult-sorcerous-lens,Sorcerous Lens,Arcana,Utility,1,occult,22
+occult-steal-hearing,Steal Hearing,Alteration,Attack,1,occult,20
+occult-stirring-refrain,Stirring Refrain,Song,Utility,1,occult,98
+occult-strobe-light,Strobe Light,Celestial,Utility,1,occult,26
+occult-sun-shard,Sun Shard,Celestial,Attack,1,occult,26
+occult-sword-of-fire,Sword Of Fire,Fire,Attack,1,occult,56
+occult-the-dwarf-lord,The Dwarf Lord,Invocation,Utility,1,occult,64
+occult-the-goblin-king,The Goblin King,Invocation,Utility,1,occult,64
+occult-the-storm-queen,The Storm Queen,Invocation,Attack,1,occult,65
+occult-time-loop,Time Loop,Time,Attack,1,occult,124
+occult-undo-constitution,Undo Constitution,Death,Attack,1,occult,38
+occult-unlikely-transformation,Unlikely Transformation,Chaos,Attack,1,occult,29
+occult-venomous-fangs,Venomous Fangs,Primal,Utility,1,occult,86
+occult-venomous-shape,Venomous Shape,Transformation,Utility,1,occult,127
+occult-vexing-spirit,Vexing Spirit,Spiritualism,Attack,1,occult,104
+occult-water-burst,Water Burst,Water,Attack,1,occult,129
+occult-wind-disk,Wind Disk,Air,Utility,1,occult,13
+occult-anticipate-attack,Anticipate Attack,Divination,Utility,2,occult,46
+occult-arcane-coils,Arcane Coils,Arcana,Attack,2,occult,22
+occult-augmented-vitality,Augmented Vitality,Life,Utility,2,occult,69
+occult-avalanche-strike,Avalanche Strike,Battle,Attack,2,occult,24
+occult-awaken-passion,Awaken Passion,Enchantment,Utility,2,occult,50
+occult-battle-chant,Battle Chant,Song,Utility,2,occult,98
+occult-blood-harvest,Blood Harvest,Demonology,Attack,2,occult,41
+occult-buffeting-winds,Buffeting Winds,Air,Utility,2,occult,13
+occult-chaos-unleashed,Chaos Unleashed,Chaos,Utility,2,occult,29
+occult-chromatic-lance,Chromatic Lance,Chaos,Attack,2,occult,29
+occult-clear-the-path,Clear The Path,Destruction,Attack,2,occult,44
+occult-close-the-gap,Close The Gap,Teleportation,Utility,2,occult,118
+occult-corrosive-touch,Corrosive Touch,Alchemy,Utility,2,occult,16
+occult-creation,Creation,Conjuration,Utility,2,occult,32
+occult-curse-of-the-emerald-hand,Curse Of The Emerald Hand,Curse,Attack,2,occult,36
+occult-darting-claw,Darting Claw,Primal,Attack,2,occult,86
+occult-dead-one-walking,Dead One Walking,Death,Attack,2,occult,39
+occult-demand,Demand,Order,Attack,2,occult,84
+occult-detonating-rune,Detonating Rune,Rune,Utility,2,occult,92
+occult-dimensional-travel,Dimensional Travel,Madness,Utility,2,occult,71
+occult-distant-doom,Distant Doom,Battle,Attack,2,occult,24
+occult-divine-shield,Divine Shield,Theurgy,Utility,2,occult,120
+occult-earth-wave,Earth Wave,Earth,Attack,2,occult,48
+occult-electrify,Electrify,Protection,Utility,2,occult,89
+occult-eternal-stench,Eternal Stench,Curse,Attack,2,occult,36
+occult-explosive-exhalation,Explosive Exhalation,Air,Attack,2,occult,13
+occult-false-healing,False Healing,Illusion,Utility,2,occult,61
+occult-fire-walk,Fire Walk,Fire,Utility,2,occult,56
+occult-focused-light,Focused Light,Celestial,Attack,2,occult,26
+occult-forbidden-zone,Forbidden Zone,Order,Utility,2,occult,84
+occult-funeral-shroud,Funeral Shroud,Necromancy,Utility,2,occult,80
+occult-ghastly-visage,Ghastly Visage,Forbidden,Attack,2,occult,59
+occult-grotesque-fantasies,Grotesque Fantasies,Forbidden,Attack,2,occult,59
+occult-hoary-tentacle,Hoary Tentacle,Madness,Attack,2,occult,72
+occult-holy-armaments,Holy Armaments,Theurgy,Utility,2,occult,120
+occult-ignite,Ignite,Fire,Utility,2,occult,56
+occult-inevitable-blade,Inevitable Blade,Arcana,Utility,2,occult,22
+occult-intellectual-defense,Intellectual Defense,Telepathy,Utility,2,occult,116
+occult-iron-to-wood,Iron To Wood,Fey,Utility,2,occult,52
+occult-lasting-image,Lasting Image,Illusion,Utility,2,occult,61
+occult-lion-spirit,Lion Spirit,Spiritualism,Utility,2,occult,104
+occult-mantle-of-thanatos,Mantle Of Thanatos,Death,Utility,2,occult,39
+occult-memory-of-the-forge,Memory Of The Forge,Metal,Attack,2,occult,74
+occult-mines,Mines,Technomancy,Utility,2,occult,110
+occult-necromantic-power,Necromantic Power,Necromancy,Utility,2,occult,81
+occult-oil-slick,Oil Slick,Alchemy,Attack,2,occult,16
+occult-pathfinder,Pathfinder,Divination,Utility,2,occult,46
+occult-penumbral-blade,Penumbral Blade,Shadow,Utility,2,occult,95
+occult-plant-form,Plant Form,Transformation,Utility,2,occult,127
+occult-poison-ivy,Poison Ivy,Nature,Attack,2,occult,77
+occult-reeking-fog,Reeking Fog,Alchemy,Attack,2,occult,16
+occult-relocate-object,Relocate Object,Teleportation,Utility,2,occult,118
+occult-rend-mind,Rend Mind,Telepathy,Attack,2,occult,116
+occult-repel-iron,Repel Iron,Fey,Attack,2,occult,52
+occult-revitalize,Revitalize,Alteration,Utility,2,occult,20
+occult-revulsion,Revulsion,Enchantment,Attack,2,occult,50
+occult-ride-the-lightning,Ride The Lightning,Storm,Attack,2,occult,107
+occult-rousing-ballad,Rousing Ballad,Song,Utility,2,occult,98
+occult-ruinous-presence,Ruinous Presence,Destruction,Attack,2,occult,44
+occult-screen,Screen,Protection,Utility,2,occult,89
+occult-seed-of-life,Seed Of Life,Life,Utility,2,occult,69
+occult-shadow-snakes,Shadow Snakes,Shadow,Attack,2,occult,95
+occult-sickening-rune,Sickening Rune,Rune,Utility,2,occult,92
+occult-slime-form,Slime Form,Transformation,Utility,2,occult,127
+occult-smash,Smash,Telekinesis,Attack,2,occult,114
+occult-soul-to-soul,Soul To Soul,Soul,Utility,2,occult,101
+occult-spirit-thrall,Spirit Thrall,Spiritualism,Utility,2,occult,104
+occult-steal-sight,Steal Sight,Alteration,Attack,2,occult,20
+occult-sticky-strands,Sticky Strands,Conjuration,Attack,2,occult,33
+occult-stone-call,Stone Call,Earth,Utility,2,occult,48
+occult-storm-blessing,Storm Blessing,Storm,Utility,2,occult,107
+occult-swarming-animals,Swarming Animals,Primal,Utility,2,occult,86
+occult-swirling-mist,Swirling Mist,Water,Utility,2,occult,129
+occult-telekinetic-leap,Telekinetic Leap,Telekinesis,Utility,2,occult,114
+occult-the-grand-druid,The Grand Druid,Invocation,Attack,2,occult,65
+occult-the-robin-prince,The Robin Prince,Invocation,Attack,2,occult,65
+occult-thorny-skin,Thorny Skin,Nature,Attack,2,occult,77
+occult-time-skip,Time Skip,Time,Utility,2,occult,124
+occult-timely-warning,Timely Warning,Time,Utility,2,occult,124
+occult-tiny-lanterns,Tiny Lanterns,Celestial,Utility,2,occult,26
+occult-topple-the-mountain,Topple The Mountain,Soul,Utility,2,occult,102
+occult-unlight,Unlight,Madness,Utility,2,occult,72
+occult-warding-buckler,Warding Buckler,Metal,Utility,2,occult,74
+occult-watery-serpent,Watery Serpent,Water,Attack,2,occult,129
